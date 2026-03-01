@@ -1,0 +1,86 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Category {
+  id          Int       @id @default(autoincrement())
+  name        String    @unique
+  description String
+  icon        String    @default("🌿")
+  createdAt   DateTime  @default(now()) @map("created_at")
+  products    Product[]
+
+  @@map("categories")
+}
+
+model Supplier {
+  id        Int       @id @default(autoincrement())
+  name      String
+  contact   String
+  region    String
+  rating    Float     @default(0)
+  createdAt DateTime  @default(now()) @map("created_at")
+  products  Product[]
+
+  @@map("suppliers")
+}
+
+model Season {
+  id         Int       @id @default(autoincrement())
+  name       String    @unique
+  startMonth Int       @map("start_month")
+  endMonth   Int       @map("end_month")
+  products   Product[]
+
+  @@map("seasons")
+}
+
+model Product {
+  id              Int      @id @default(autoincrement())
+  name            String
+  scientificName  String   @map("scientific_name")
+  description     String
+  price           Float
+  stock           Int      @default(0)
+  imageUrl        String   @map("image_url")
+  careDifficulty  String   @map("care_difficulty")
+  originCountry   String   @map("origin_country")
+  sunlightNeeds   String   @map("sunlight_needs")
+  waterFrequency  String   @map("water_frequency")
+  createdAt       DateTime @default(now()) @map("created_at")
+
+  categoryId Int      @map("category_id")
+  category   Category @relation(fields: [categoryId], references: [id])
+
+  supplierId Int      @map("supplier_id")
+  supplier   Supplier @relation(fields: [supplierId], references: [id])
+
+  seasonId Int    @map("season_id")
+  season   Season @relation(fields: [seasonId], references: [id])
+
+  sales Sale[]
+
+  @@index([categoryId])
+  @@index([supplierId])
+  @@index([seasonId])
+  @@index([name])
+  @@map("products")
+}
+
+model Sale {
+  id         Int      @id @default(autoincrement())
+  quantity   Int
+  totalPrice Float    @map("total_price")
+  soldAt     DateTime @default(now()) @map("sold_at")
+
+  productId Int     @map("product_id")
+  product   Product @relation(fields: [productId], references: [id])
+
+  @@index([productId])
+  @@map("sales")
+}
