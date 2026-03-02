@@ -1,4 +1,5 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:hive/hive.dart';
 import '../../domain/entities/product.dart';
 
 part 'product_model.freezed.dart';
@@ -6,20 +7,21 @@ part 'product_model.g.dart';
 
 @freezed
 class ProductModel with _$ProductModel {
+  @HiveType(typeId: 0, adapterName: 'ProductModelAdapter')
   const factory ProductModel({
-    required int id,
-    required String name,
-    required String scientificName,
-    required String description,
-    required double price,
-    required int stock,
-    required String imageUrl,
-    required String careDifficulty,
-    required String originCountry,
-    required String sunlightNeeds,
-    required String waterFrequency,
-    required DateTime createdAt,
-    required CategoryModel category,
+    @HiveField(0) required int id,
+    @HiveField(1) required String name,
+    @HiveField(2) required String scientificName,
+    @HiveField(3) required String description,
+    @HiveField(4) required double price,
+    @HiveField(5) required int stock,
+    @HiveField(6) required String imageUrl,
+    @HiveField(7) required String careDifficulty,
+    @HiveField(8) required String originCountry,
+    @HiveField(9) required String sunlightNeeds,
+    @HiveField(10) required String waterFrequency,
+    @HiveField(11) required DateTime createdAt,
+    @HiveField(12) required CategoryModel category,
   }) = _ProductModel;
 
   factory ProductModel.fromJson(Map<String, dynamic> json) =>
@@ -28,10 +30,11 @@ class ProductModel with _$ProductModel {
 
 @freezed
 class CategoryModel with _$CategoryModel {
+  @HiveType(typeId: 1, adapterName: 'CategoryModelAdapter')
   const factory CategoryModel({
-    required int id,
-    required String name,
-    required String icon,
+    @HiveField(0) required int id,
+    @HiveField(1) required String name,
+    @HiveField(2) required String icon,
   }) = _CategoryModel;
 
   factory CategoryModel.fromJson(Map<String, dynamic> json) =>

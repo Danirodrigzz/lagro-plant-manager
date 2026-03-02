@@ -3,6 +3,120 @@
 part of 'product_model.dart';
 
 // **************************************************************************
+// TypeAdapterGenerator
+// **************************************************************************
+
+class ProductModelAdapter extends TypeAdapter<_$ProductModelImpl> {
+  @override
+  final int typeId = 0;
+
+  @override
+  _$ProductModelImpl read(BinaryReader reader) {
+    final numOfFields = reader.readByte();
+    final fields = <int, dynamic>{
+      for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
+    };
+    return _$ProductModelImpl(
+      id: fields[0] as int,
+      name: fields[1] as String,
+      scientificName: fields[2] as String,
+      description: fields[3] as String,
+      price: fields[4] as double,
+      stock: fields[5] as int,
+      imageUrl: fields[6] as String,
+      careDifficulty: fields[7] as String,
+      originCountry: fields[8] as String,
+      sunlightNeeds: fields[9] as String,
+      waterFrequency: fields[10] as String,
+      createdAt: fields[11] as DateTime,
+      category: fields[12] as CategoryModel,
+    );
+  }
+
+  @override
+  void write(BinaryWriter writer, _$ProductModelImpl obj) {
+    writer
+      ..writeByte(13)
+      ..writeByte(0)
+      ..write(obj.id)
+      ..writeByte(1)
+      ..write(obj.name)
+      ..writeByte(2)
+      ..write(obj.scientificName)
+      ..writeByte(3)
+      ..write(obj.description)
+      ..writeByte(4)
+      ..write(obj.price)
+      ..writeByte(5)
+      ..write(obj.stock)
+      ..writeByte(6)
+      ..write(obj.imageUrl)
+      ..writeByte(7)
+      ..write(obj.careDifficulty)
+      ..writeByte(8)
+      ..write(obj.originCountry)
+      ..writeByte(9)
+      ..write(obj.sunlightNeeds)
+      ..writeByte(10)
+      ..write(obj.waterFrequency)
+      ..writeByte(11)
+      ..write(obj.createdAt)
+      ..writeByte(12)
+      ..write(obj.category);
+  }
+
+  @override
+  int get hashCode => typeId.hashCode;
+
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      other is ProductModelAdapter &&
+          runtimeType == other.runtimeType &&
+          typeId == other.typeId;
+}
+
+class CategoryModelAdapter extends TypeAdapter<_$CategoryModelImpl> {
+  @override
+  final int typeId = 1;
+
+  @override
+  _$CategoryModelImpl read(BinaryReader reader) {
+    final numOfFields = reader.readByte();
+    final fields = <int, dynamic>{
+      for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
+    };
+    return _$CategoryModelImpl(
+      id: fields[0] as int,
+      name: fields[1] as String,
+      icon: fields[2] as String,
+    );
+  }
+
+  @override
+  void write(BinaryWriter writer, _$CategoryModelImpl obj) {
+    writer
+      ..writeByte(3)
+      ..writeByte(0)
+      ..write(obj.id)
+      ..writeByte(1)
+      ..write(obj.name)
+      ..writeByte(2)
+      ..write(obj.icon);
+  }
+
+  @override
+  int get hashCode => typeId.hashCode;
+
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      other is CategoryModelAdapter &&
+          runtimeType == other.runtimeType &&
+          typeId == other.typeId;
+}
+
+// **************************************************************************
 // JsonSerializableGenerator
 // **************************************************************************
 

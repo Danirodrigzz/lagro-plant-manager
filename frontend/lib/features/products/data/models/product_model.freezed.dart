@@ -20,18 +20,31 @@ ProductModel _$ProductModelFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$ProductModel {
+  @HiveField(0)
   int get id => throw _privateConstructorUsedError;
+  @HiveField(1)
   String get name => throw _privateConstructorUsedError;
+  @HiveField(2)
   String get scientificName => throw _privateConstructorUsedError;
+  @HiveField(3)
   String get description => throw _privateConstructorUsedError;
+  @HiveField(4)
   double get price => throw _privateConstructorUsedError;
+  @HiveField(5)
   int get stock => throw _privateConstructorUsedError;
+  @HiveField(6)
   String get imageUrl => throw _privateConstructorUsedError;
+  @HiveField(7)
   String get careDifficulty => throw _privateConstructorUsedError;
+  @HiveField(8)
   String get originCountry => throw _privateConstructorUsedError;
+  @HiveField(9)
   String get sunlightNeeds => throw _privateConstructorUsedError;
+  @HiveField(10)
   String get waterFrequency => throw _privateConstructorUsedError;
+  @HiveField(11)
   DateTime get createdAt => throw _privateConstructorUsedError;
+  @HiveField(12)
   CategoryModel get category => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -47,19 +60,19 @@ abstract class $ProductModelCopyWith<$Res> {
       _$ProductModelCopyWithImpl<$Res, ProductModel>;
   @useResult
   $Res call(
-      {int id,
-      String name,
-      String scientificName,
-      String description,
-      double price,
-      int stock,
-      String imageUrl,
-      String careDifficulty,
-      String originCountry,
-      String sunlightNeeds,
-      String waterFrequency,
-      DateTime createdAt,
-      CategoryModel category});
+      {@HiveField(0) int id,
+      @HiveField(1) String name,
+      @HiveField(2) String scientificName,
+      @HiveField(3) String description,
+      @HiveField(4) double price,
+      @HiveField(5) int stock,
+      @HiveField(6) String imageUrl,
+      @HiveField(7) String careDifficulty,
+      @HiveField(8) String originCountry,
+      @HiveField(9) String sunlightNeeds,
+      @HiveField(10) String waterFrequency,
+      @HiveField(11) DateTime createdAt,
+      @HiveField(12) CategoryModel category});
 
   $CategoryModelCopyWith<$Res> get category;
 }
@@ -165,19 +178,19 @@ abstract class _$$ProductModelImplCopyWith<$Res>
   @override
   @useResult
   $Res call(
-      {int id,
-      String name,
-      String scientificName,
-      String description,
-      double price,
-      int stock,
-      String imageUrl,
-      String careDifficulty,
-      String originCountry,
-      String sunlightNeeds,
-      String waterFrequency,
-      DateTime createdAt,
-      CategoryModel category});
+      {@HiveField(0) int id,
+      @HiveField(1) String name,
+      @HiveField(2) String scientificName,
+      @HiveField(3) String description,
+      @HiveField(4) double price,
+      @HiveField(5) int stock,
+      @HiveField(6) String imageUrl,
+      @HiveField(7) String careDifficulty,
+      @HiveField(8) String originCountry,
+      @HiveField(9) String sunlightNeeds,
+      @HiveField(10) String waterFrequency,
+      @HiveField(11) DateTime createdAt,
+      @HiveField(12) CategoryModel category});
 
   @override
   $CategoryModelCopyWith<$Res> get category;
@@ -267,50 +280,64 @@ class __$$ProductModelImplCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
+@HiveType(typeId: 0, adapterName: 'ProductModelAdapter')
 class _$ProductModelImpl implements _ProductModel {
   const _$ProductModelImpl(
-      {required this.id,
-      required this.name,
-      required this.scientificName,
-      required this.description,
-      required this.price,
-      required this.stock,
-      required this.imageUrl,
-      required this.careDifficulty,
-      required this.originCountry,
-      required this.sunlightNeeds,
-      required this.waterFrequency,
-      required this.createdAt,
-      required this.category});
+      {@HiveField(0) required this.id,
+      @HiveField(1) required this.name,
+      @HiveField(2) required this.scientificName,
+      @HiveField(3) required this.description,
+      @HiveField(4) required this.price,
+      @HiveField(5) required this.stock,
+      @HiveField(6) required this.imageUrl,
+      @HiveField(7) required this.careDifficulty,
+      @HiveField(8) required this.originCountry,
+      @HiveField(9) required this.sunlightNeeds,
+      @HiveField(10) required this.waterFrequency,
+      @HiveField(11) required this.createdAt,
+      @HiveField(12) required this.category});
 
   factory _$ProductModelImpl.fromJson(Map<String, dynamic> json) =>
       _$$ProductModelImplFromJson(json);
 
   @override
+  @HiveField(0)
   final int id;
   @override
+  @HiveField(1)
   final String name;
   @override
+  @HiveField(2)
   final String scientificName;
   @override
+  @HiveField(3)
   final String description;
   @override
+  @HiveField(4)
   final double price;
   @override
+  @HiveField(5)
   final int stock;
   @override
+  @HiveField(6)
   final String imageUrl;
   @override
+  @HiveField(7)
   final String careDifficulty;
   @override
+  @HiveField(8)
   final String originCountry;
   @override
+  @HiveField(9)
   final String sunlightNeeds;
   @override
+  @HiveField(10)
   final String waterFrequency;
   @override
+  @HiveField(11)
   final DateTime createdAt;
   @override
+  @HiveField(12)
   final CategoryModel category;
 
   @override
@@ -381,48 +408,62 @@ class _$ProductModelImpl implements _ProductModel {
 
 abstract class _ProductModel implements ProductModel {
   const factory _ProductModel(
-      {required final int id,
-      required final String name,
-      required final String scientificName,
-      required final String description,
-      required final double price,
-      required final int stock,
-      required final String imageUrl,
-      required final String careDifficulty,
-      required final String originCountry,
-      required final String sunlightNeeds,
-      required final String waterFrequency,
-      required final DateTime createdAt,
-      required final CategoryModel category}) = _$ProductModelImpl;
+          {@HiveField(0) required final int id,
+          @HiveField(1) required final String name,
+          @HiveField(2) required final String scientificName,
+          @HiveField(3) required final String description,
+          @HiveField(4) required final double price,
+          @HiveField(5) required final int stock,
+          @HiveField(6) required final String imageUrl,
+          @HiveField(7) required final String careDifficulty,
+          @HiveField(8) required final String originCountry,
+          @HiveField(9) required final String sunlightNeeds,
+          @HiveField(10) required final String waterFrequency,
+          @HiveField(11) required final DateTime createdAt,
+          @HiveField(12) required final CategoryModel category}) =
+      _$ProductModelImpl;
 
   factory _ProductModel.fromJson(Map<String, dynamic> json) =
       _$ProductModelImpl.fromJson;
 
   @override
+  @HiveField(0)
   int get id;
   @override
+  @HiveField(1)
   String get name;
   @override
+  @HiveField(2)
   String get scientificName;
   @override
+  @HiveField(3)
   String get description;
   @override
+  @HiveField(4)
   double get price;
   @override
+  @HiveField(5)
   int get stock;
   @override
+  @HiveField(6)
   String get imageUrl;
   @override
+  @HiveField(7)
   String get careDifficulty;
   @override
+  @HiveField(8)
   String get originCountry;
   @override
+  @HiveField(9)
   String get sunlightNeeds;
   @override
+  @HiveField(10)
   String get waterFrequency;
   @override
+  @HiveField(11)
   DateTime get createdAt;
   @override
+  @HiveField(12)
   CategoryModel get category;
   @override
   @JsonKey(ignore: true)
@@ -436,8 +477,11 @@ CategoryModel _$CategoryModelFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$CategoryModel {
+  @HiveField(0)
   int get id => throw _privateConstructorUsedError;
+  @HiveField(1)
   String get name => throw _privateConstructorUsedError;
+  @HiveField(2)
   String get icon => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -452,7 +496,10 @@ abstract class $CategoryModelCopyWith<$Res> {
           CategoryModel value, $Res Function(CategoryModel) then) =
       _$CategoryModelCopyWithImpl<$Res, CategoryModel>;
   @useResult
-  $Res call({int id, String name, String icon});
+  $Res call(
+      {@HiveField(0) int id,
+      @HiveField(1) String name,
+      @HiveField(2) String icon});
 }
 
 /// @nodoc
@@ -497,7 +544,10 @@ abstract class _$$CategoryModelImplCopyWith<$Res>
       __$$CategoryModelImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({int id, String name, String icon});
+  $Res call(
+      {@HiveField(0) int id,
+      @HiveField(1) String name,
+      @HiveField(2) String icon});
 }
 
 /// @nodoc
@@ -534,18 +584,24 @@ class __$$CategoryModelImplCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
+@HiveType(typeId: 1, adapterName: 'CategoryModelAdapter')
 class _$CategoryModelImpl implements _CategoryModel {
   const _$CategoryModelImpl(
-      {required this.id, required this.name, required this.icon});
+      {@HiveField(0) required this.id,
+      @HiveField(1) required this.name,
+      @HiveField(2) required this.icon});
 
   factory _$CategoryModelImpl.fromJson(Map<String, dynamic> json) =>
       _$$CategoryModelImplFromJson(json);
 
   @override
+  @HiveField(0)
   final int id;
   @override
+  @HiveField(1)
   final String name;
   @override
+  @HiveField(2)
   final String icon;
 
   @override
@@ -583,18 +639,21 @@ class _$CategoryModelImpl implements _CategoryModel {
 
 abstract class _CategoryModel implements CategoryModel {
   const factory _CategoryModel(
-      {required final int id,
-      required final String name,
-      required final String icon}) = _$CategoryModelImpl;
+      {@HiveField(0) required final int id,
+      @HiveField(1) required final String name,
+      @HiveField(2) required final String icon}) = _$CategoryModelImpl;
 
   factory _CategoryModel.fromJson(Map<String, dynamic> json) =
       _$CategoryModelImpl.fromJson;
 
   @override
+  @HiveField(0)
   int get id;
   @override
+  @HiveField(1)
   String get name;
   @override
+  @HiveField(2)
   String get icon;
   @override
   @JsonKey(ignore: true)
