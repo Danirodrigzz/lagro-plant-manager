@@ -1,6 +1,6 @@
 import 'package:dio/dio.dart';
-import '../models/pagination_model.dart';
-import '../models/product_model.dart';
+import 'package:lagro_plant_manager/features/products/data/models/pagination_model.dart';
+import 'package:lagro_plant_manager/features/products/data/models/product_model.dart';
 
 class ProductsRemoteDataSource {
   final Dio _dio;
@@ -41,6 +41,17 @@ class ProductsRemoteDataSource {
       return ProductModel.fromJson(response.data['data']);
     } else {
       return null;
+    }
+  }
+
+  Future<List<CategoryModel>> getCategories() async {
+    final response = await _dio.get('/categories');
+
+    if (response.data['success'] == true) {
+      final List data = response.data['data'];
+      return data.map((e) => CategoryModel.fromJson(e)).toList();
+    } else {
+      throw Exception(response.data['error'] ?? 'Failed to fetch categories');
     }
   }
 }

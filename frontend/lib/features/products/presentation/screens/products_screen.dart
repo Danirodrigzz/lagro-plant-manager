@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import '../../../core/widgets/shimmer_widgets.dart';
-import '../providers/products_notifiers.dart';
-import '../widgets/product_card.dart';
+import 'package:lagro_plant_manager/core/widgets/shimmer_widgets.dart';
+import 'package:lagro_plant_manager/features/products/presentation/providers/products_notifiers.dart';
+import 'package:lagro_plant_manager/features/products/presentation/widgets/category_chips.dart';
+import 'package:lagro_plant_manager/features/products/presentation/widgets/product_card.dart';
+import 'package:lagro_plant_manager/features/products/presentation/widgets/search_bar_widget.dart';
 
 class ProductsScreen extends ConsumerWidget {
   const ProductsScreen({super.key});
@@ -32,19 +34,63 @@ class ProductsScreen extends ConsumerWidget {
               ],
             ),
 
-            // Search indicator
+            // Search Bar
+            SliverToBoxAdapter(
+              child: SearchBarWidget(
+                initialValue: state.search,
+                onSearch: (value) => notifier.updateSearch(value),
+              ),
+            ),
+
+            // Category Filters
+            SliverToBoxAdapter(
+              child: CategoryChips(
+                selectedCategoryId: state.categoryId,
+                onCategorySelected: (id) => notifier.updateCategory(id),
+              ),
+            ),
+
+            const SliverToBoxAdapter(child: SizedBox(height: 16)),
+
+            // Search results indicator
             if (state.products.isNotEmpty)
               SliverToBoxAdapter(
                 child: Padding(
-                  padding: const EdgeInsets.fromLTRB(16, 8, 16, 16),
-                  child: Text(
-                    'Mostrando ${state.products.length} productos',
-                    style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                          color: Colors.grey[600],
+                  padding: const EdgeInsets.symmetric(horizontal: 16),
+                  child: Row(
+                    children: [
+                      Text(
+                        'Mostrando ${state.products.length} productos',
+                        style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                              color: Colors.grey[600],
+                            ),
+                      ),
+                      if (state.search != null && state.search!.isNotEmpty) ...[
+                        const SizedBox(width: 8),
+                        Container(
+                          padding: const EdgeInsets.symmetric(
+                            horizontal: 8,
+                            vertical: 2,
+                          ),
+                          decoration: BoxDecoration(
+                            color: Theme.of(context).primaryColor.withOpacity(0.1),
+                            borderRadius: BorderRadius.circular(12),
+                          ),
+                          child: Text(
+                            '"${state.search}"',
+                            style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                                  color: Theme.of(context).primaryColor,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                          ),
                         ),
+                      ],
+                    ],
                   ),
                 ),
               ),
+
+            const SliverToBoxAdapter(child: SizedBox(height: 16)),
 
             // Initial Loading with Shimmer
             if (state.isLoading && state.products.isEmpty)
@@ -99,9 +145,21 @@ class ProductsScreen extends ConsumerWidget {
 
             // Empty state
             if (state.products.isEmpty && !state.isLoading && state.error == null)
-              const SliverFillRemaining(
+              SliverFillRemaining(
                 child: Center(
-                  child: Text('No se encontraron productos 🌱'),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      const Icon(Icons.search_off, size: 64, color: Colors.grey),
+                      const SizedBox(height: 16),
+                      Text(
+                        'No encontramos lo que buscas 🌱',
+                        style: Theme.of(context).textTheme.titleMedium,
+                      ),
+                      const SizedBox(height: 8),
+                      const Text('Intenta con otra palabra o categoría.'),
+                    ],
+                  ),
                 ),
               ),
 

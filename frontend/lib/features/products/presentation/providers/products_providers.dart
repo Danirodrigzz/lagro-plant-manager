@@ -1,10 +1,11 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import '../../../core/network/dio_client.dart';
-import '../../data/datasources/products_local_data_source.dart';
-import '../../data/datasources/products_remote_data_source.dart';
-import '../../data/repositories/product_repository_impl.dart';
-import '../../domain/repositories/i_product_repository.dart';
-import '../../domain/usecases/get_products.dart';
+import 'package:lagro_plant_manager/core/network/dio_client.dart';
+import 'package:lagro_plant_manager/features/products/data/datasources/products_local_data_source.dart';
+import 'package:lagro_plant_manager/features/products/data/datasources/products_remote_data_source.dart';
+import 'package:lagro_plant_manager/features/products/data/repositories/product_repository_impl.dart';
+import 'package:lagro_plant_manager/features/products/domain/repositories/i_product_repository.dart';
+import 'package:lagro_plant_manager/features/products/domain/usecases/get_products.dart';
+import 'package:lagro_plant_manager/features/products/domain/entities/product.dart';
 
 // 1. Data Sources
 final productsRemoteDataSourceProvider = Provider<ProductsRemoteDataSource>((ref) {
@@ -23,7 +24,13 @@ final productRepositoryProvider = Provider<IProductRepository>((ref) {
   );
 });
 
-// 3. Use Case
+// 3. Use Cases
 final getProductsUseCaseProvider = Provider<GetProductsUseCase>((ref) {
   return GetProductsUseCase(ref.watch(productRepositoryProvider));
+});
+
+// 4. State Providers
+final categoriesProvider = FutureProvider<List<Category>>((ref) async {
+  final repository = ref.watch(productRepositoryProvider);
+  return repository.getCategories();
 });

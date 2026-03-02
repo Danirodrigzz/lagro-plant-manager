@@ -1,8 +1,8 @@
-import '../../domain/entities/product.dart';
-import '../../domain/repositories/i_product_repository.dart';
-import '../datasources/products_local_data_source.dart';
-import '../datasources/products_remote_data_source.dart';
-import '../models/product_model.dart';
+import 'package:lagro_plant_manager/features/products/domain/entities/product.dart';
+import 'package:lagro_plant_manager/features/products/domain/repositories/i_product_repository.dart';
+import 'package:lagro_plant_manager/features/products/data/datasources/products_local_data_source.dart';
+import 'package:lagro_plant_manager/features/products/data/datasources/products_remote_data_source.dart';
+import 'package:lagro_plant_manager/features/products/data/models/product_model.dart';
 
 class ProductRepositoryImpl implements IProductRepository {
   final ProductsRemoteDataSource _remoteDataSource;
@@ -56,5 +56,11 @@ class ProductRepositoryImpl implements IProductRepository {
       final model = cachedModels.where((m) => m.id == id).firstOrNull;
       return model?.toEntity();
     }
+  }
+
+  @override
+  Future<List<Category>> getCategories() async {
+    final models = await _remoteDataSource.getCategories();
+    return models.map((m) => m.toEntity()).toList();
   }
 }

@@ -9,4 +9,6 @@ abstract class IProductRepository {
   });
 
   Future<Product?> getProductById(int id);
+
+  Future<List<Category>> getCategories();
 }

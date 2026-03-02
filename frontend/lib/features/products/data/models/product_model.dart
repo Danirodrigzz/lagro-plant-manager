@@ -59,3 +59,11 @@ extension ProductModelX on ProductModel {
         categoryIcon: category.icon,
       );
 }
+
+extension CategoryModelX on CategoryModel {
+  Category toEntity() => Category(
+        id: id,
+        name: name,
+        icon: icon,
+      );
+}

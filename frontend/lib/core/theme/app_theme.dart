@@ -32,12 +32,13 @@ class AppTheme {
         elevation: 0,
         centerTitle: false,
       ),
-      cardTheme: CardTheme(
-        color: AppColors.surface,
-        elevation: 2,
+      cardTheme: CardThemeData(
+        elevation: 0,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(16),
+          side: BorderSide(color: Colors.grey.withOpacity(0.2)),
         ),
+        color: Colors.white,
       ),
       elevatedButtonTheme: ElevatedButtonThemeData(
         style: ElevatedButton.styleFrom(

@@ -1,7 +1,7 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import '../../domain/entities/product.dart';
-import '../../domain/usecases/get_products.dart';
-import 'products_providers.dart';
+import 'package:lagro_plant_manager/features/products/domain/entities/product.dart';
+import 'package:lagro_plant_manager/features/products/domain/usecases/get_products.dart';
+import 'package:lagro_plant_manager/features/products/presentation/providers/products_providers.dart';
 
 class ProductsState {
   final List<Product> products;
@@ -9,6 +9,8 @@ class ProductsState {
   final bool hasMore;
   final bool isLoading;
   final String? error;
+  final String? search;
+  final int? categoryId;
 
   ProductsState({
     required this.products,
@@ -16,6 +18,8 @@ class ProductsState {
     this.hasMore = true,
     this.isLoading = false,
     this.error,
+    this.search,
+    this.categoryId,
   });
 
   ProductsState copyWith({
@@ -24,6 +28,8 @@ class ProductsState {
     bool? hasMore,
     bool? isLoading,
     String? error,
+    String? search,
+    int? categoryId,
   }) {
     return ProductsState(
       products: products ?? this.products,
@@ -31,6 +37,8 @@ class ProductsState {
       hasMore: hasMore ?? this.hasMore,
       isLoading: isLoading ?? this.isLoading,
       error: error,
+      search: search ?? this.search,
+      categoryId: categoryId == -1 ? null : (categoryId ?? this.categoryId),
     );
   }
 }
@@ -51,6 +59,8 @@ class ProductsNotifier extends StateNotifier<ProductsState> {
     try {
       final (newProducts, nextCursor, hasMore) = await _getProductsUseCase(
         cursor: state.nextCursor,
+        search: state.search,
+        categoryId: state.categoryId,
       );
 
       state = state.copyWith(
@@ -67,8 +77,34 @@ class ProductsNotifier extends StateNotifier<ProductsState> {
     }
   }
 
+  void updateSearch(String? search) {
+    if (state.search == search) return;
+    state = state.copyWith(
+      search: search,
+      products: [],
+      nextCursor: null,
+      hasMore: true,
+    );
+    loadNextPage();
+  }
+
+  void updateCategory(int? categoryId) {
+    if (state.categoryId == categoryId) return;
+    state = state.copyWith(
+      categoryId: categoryId ?? -1, // Use -1 as a flag to nullify
+      products: [],
+      nextCursor: null,
+      hasMore: true,
+    );
+    loadNextPage();
+  }
+
   Future<void> refresh() async {
-    state = ProductsState(products: []);
+    state = state.copyWith(
+      products: [],
+      nextCursor: null,
+      hasMore: true,
+    );
     await loadNextPage();
   }
 }
