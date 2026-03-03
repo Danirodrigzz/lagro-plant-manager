@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:lagro_plant_manager/core/utils/page_transitions.dart';
 import 'package:lagro_plant_manager/core/widgets/shimmer_widgets.dart';
 import 'package:lagro_plant_manager/features/products/presentation/providers/products_notifiers.dart';
 import 'package:lagro_plant_manager/features/products/presentation/providers/theme_provider.dart';
+import 'package:lagro_plant_manager/features/products/presentation/screens/product_detail_screen.dart';
 import 'package:lagro_plant_manager/features/products/presentation/widgets/category_chips.dart';
 import 'package:lagro_plant_manager/features/products/presentation/widgets/product_card.dart';
 import 'package:lagro_plant_manager/features/products/presentation/widgets/search_bar_widget.dart';
@@ -149,7 +151,11 @@ class ProductsScreen extends ConsumerWidget {
                         child: ProductCard(
                           product: product,
                           onTap: () {
-                            // TODO: Navigate to details
+                            Navigator.of(context).push(
+                              SlideUpPageRoute(
+                                page: ProductDetailScreen(product: product),
+                              ),
+                            );
                           },
                         ),
                       );

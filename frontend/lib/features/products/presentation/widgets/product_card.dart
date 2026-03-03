@@ -25,20 +25,23 @@ class ProductCard extends StatelessWidget {
             // Image with Category Overlay
             Stack(
               children: [
-                CachedNetworkImage(
-                  imageUrl: product.imageUrl,
-                  height: 180,
-                  width: double.infinity,
-                  fit: BoxFit.cover,
-                  placeholder: (context, url) => Container(
+                Hero(
+                  tag: 'product-image-${product.id}',
+                  child: CachedNetworkImage(
+                    imageUrl: product.imageUrl,
                     height: 180,
-                    color: Colors.grey[200],
-                    child: const Center(child: CircularProgressIndicator()),
-                  ),
-                  errorWidget: (context, url, error) => Container(
-                    height: 180,
-                    color: Colors.grey[300],
-                    child: const Icon(Icons.error),
+                    width: double.infinity,
+                    fit: BoxFit.cover,
+                    placeholder: (context, url) => Container(
+                      height: 180,
+                      color: Colors.grey[200],
+                      child: const Center(child: CircularProgressIndicator()),
+                    ),
+                    errorWidget: (context, url, error) => Container(
+                      height: 180,
+                      color: Colors.grey[300],
+                      child: const Icon(Icons.error),
+                    ),
                   ),
                 ),
                 Positioned(
