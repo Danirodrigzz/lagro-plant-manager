@@ -8,6 +8,7 @@ import 'package:lagro_plant_manager/features/products/presentation/screens/produ
 import 'package:lagro_plant_manager/features/products/presentation/widgets/category_chips.dart';
 import 'package:lagro_plant_manager/features/products/presentation/widgets/product_card.dart';
 import 'package:lagro_plant_manager/features/products/presentation/widgets/search_bar_widget.dart';
+import 'package:lagro_plant_manager/features/products/presentation/widgets/empty_state_widget.dart';
 
 class ProductsScreen extends ConsumerWidget {
   const ProductsScreen({super.key});
@@ -168,53 +169,24 @@ class ProductsScreen extends ConsumerWidget {
             // Empty state
             if (state.products.isEmpty && !state.isLoading && state.error == null)
               SliverFillRemaining(
-                child: Center(
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      const Icon(Icons.search_off, size: 64, color: Colors.grey),
-                      const SizedBox(height: 16),
-                      Text(
-                        'No encontramos lo que buscas 🌱',
-                        style: Theme.of(context).textTheme.titleMedium,
-                      ),
-                      const SizedBox(height: 8),
-                      const Text('Intenta con otra palabra o categoría.'),
-                    ],
-                  ),
+                hasScrollBody: false,
+                child: EmptyStateWidget(
+                  title: 'No encontramos lo que buscas 🌱',
+                  message: 'Intenta con otra palabra o selecciona una categoría diferente.',
+                  actionLabel: 'Limpiar filtros',
+                  onAction: () => notifier.clearFilters(),
                 ),
               ),
 
             // Error state
             if (state.error != null && state.products.isEmpty)
               SliverFillRemaining(
-                child: Center(
-                  child: Padding(
-                    padding: const EdgeInsets.all(32.0),
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        const Icon(Icons.cloud_off, size: 64, color: Colors.grey),
-                        const SizedBox(height: 16),
-                        Text(
-                          'Sin conexión',
-                          style: Theme.of(context).textTheme.titleLarge,
-                        ),
-                        const SizedBox(height: 8),
-                        Text(
-                          'No pudimos cargar el catálogo. Por favor, verifica tu conexión o intenta de nuevo.',
-                          textAlign: TextAlign.center,
-                          style: Theme.of(context).textTheme.bodyMedium,
-                        ),
-                        const SizedBox(height: 24),
-                        ElevatedButton.icon(
-                          onPressed: () => notifier.refresh(),
-                          icon: const Icon(Icons.refresh),
-                          label: const Text('Reintentar'),
-                        ),
-                      ],
-                    ),
-                  ),
+                hasScrollBody: false,
+                child: EmptyStateWidget(
+                  title: '¡Ups! Algo salió mal',
+                  message: 'No pudimos cargar el catálogo. Verifica tu conexión e intenta de nuevo.',
+                  actionLabel: 'Reintentar',
+                  onAction: () => notifier.refresh(),
                 ),
               ),
           ],

@@ -107,6 +107,17 @@ class ProductsNotifier extends StateNotifier<ProductsState> {
     );
     await loadNextPage();
   }
+
+  void clearFilters() {
+    state = state.copyWith(
+      search: '',
+      categoryId: -1, // Reset category
+      products: [],
+      nextCursor: null,
+      hasMore: true,
+    );
+    loadNextPage();
+  }
 }
 
 final productsNotifierProvider =
