@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:lagro_plant_manager/core/widgets/shimmer_widgets.dart';
 import 'package:lagro_plant_manager/features/products/presentation/providers/products_notifiers.dart';
+import 'package:lagro_plant_manager/features/products/presentation/providers/theme_provider.dart';
 import 'package:lagro_plant_manager/features/products/presentation/widgets/category_chips.dart';
 import 'package:lagro_plant_manager/features/products/presentation/widgets/product_card.dart';
 import 'package:lagro_plant_manager/features/products/presentation/widgets/search_bar_widget.dart';
@@ -13,6 +14,8 @@ class ProductsScreen extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final state = ref.watch(productsNotifierProvider);
     final notifier = ref.read(productsNotifierProvider.notifier);
+    final themeNotifier = ref.read(themeProvider.notifier);
+    final isDark = ref.watch(themeProvider) == ThemeMode.dark;
 
     return Scaffold(
       body: RefreshIndicator(
@@ -26,6 +29,19 @@ class ProductsScreen extends ConsumerWidget {
                 style: TextStyle(fontWeight: FontWeight.bold),
               ),
               actions: [
+                IconButton(
+                  onPressed: () => themeNotifier.toggleTheme(),
+                  icon: AnimatedSwitcher(
+                    duration: const Duration(milliseconds: 300),
+                    transitionBuilder: (child, animation) =>
+                        RotationTransition(turns: animation, child: child),
+                    child: Icon(
+                      isDark ? Icons.light_mode : Icons.dark_mode,
+                      key: ValueKey(isDark),
+                    ),
+                  ),
+                  tooltip: isDark ? 'Modo claro' : 'Modo oscuro',
+                ),
                 IconButton(
                   onPressed: () => notifier.refresh(),
                   icon: const Icon(Icons.refresh),
