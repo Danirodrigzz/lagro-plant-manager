@@ -25,6 +25,11 @@ Thumbs.db
 # Logs
 *.log
 npm-debug.log*
+build_log*.txt
+build_error.txt
+analysis*.txt
+analyze_output.txt
+pub_error.txt
 
 # Flutter
 frontend/.dart_tool/
