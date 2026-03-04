@@ -24,15 +24,13 @@ WORKDIR /app
 
 # Copy package files
 COPY backend/package*.json ./
-# Copy prisma schema (needed for client generation or runtime)
+# Copy prisma schema
 COPY backend/prisma ./prisma/
 
-# Install ONLY production dependencies
-# This is cleaner and ensures we have the right binaries for alpine
-RUN npm ci --only=production
+# Install ONLY production dependencies and prisma for migrations
+RUN npm ci --only=production && npm install prisma
 
 # Re-generate the Prisma client in the runtime stage
-# This ensures the engine is correctly placed in node_modules
 RUN npx prisma generate
 
 # Copy the compiled code from the builder stage
