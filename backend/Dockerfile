@@ -4,11 +4,10 @@ FROM node:18-alpine AS builder
 WORKDIR /app
 
 # Copy package files and prisma schema
-# (Paths are relative to project root because context is '.')
 COPY backend/package*.json ./
 COPY backend/prisma ./prisma/
 
-# Install dependencies (only for backend)
+# Install all dependencies (including devDependencies for build)
 RUN npm install
 
 # Copy backend source code
@@ -23,11 +22,17 @@ FROM node:18-alpine
 
 WORKDIR /app
 
-# Copy production dependencies
+# Copy package files
 COPY backend/package*.json ./
+
+# Install production dependencies
 RUN npm ci --only=production
 
-# Copy prisma schema and generated client from builder
+# Copy EVERYTHING needed for Prisma from builder:
+# 1. The generated engine and client code (.prisma)
+# 2. The client package wrapper (@prisma/client)
+# 3. The prisma schema file
+COPY --from=builder /app/node_modules/.prisma ./node_modules/.prisma
 COPY --from=builder /app/node_modules/@prisma ./node_modules/@prisma
 COPY --from=builder /app/prisma ./prisma
 COPY --from=builder /app/dist ./dist
@@ -35,4 +40,5 @@ COPY --from=builder /app/dist ./dist
 EXPOSE 3000
 
 # Railway will provide DATABASE_URL in env
-CMD ["node", "dist/server.js"]
+# We use a shell command to ensure migrations are applied before starting
+CMD npx prisma migrate deploy && node dist/server.js
