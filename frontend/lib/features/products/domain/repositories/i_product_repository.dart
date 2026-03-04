@@ -6,9 +6,12 @@ abstract class IProductRepository {
     int? cursor,
     String? search,
     int? categoryId,
+    int? supplierId,
+    int? seasonId,
   });
 
   Future<Product?> getProductById(int id);
-
   Future<List<Category>> getCategories();
+  Future<List<Supplier>> getSuppliers();
+  Future<List<Season>> getSeasons();
 }

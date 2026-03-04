@@ -23,6 +23,8 @@ class ProductModel with _$ProductModel {
     @HiveField(11) required DateTime createdAt,
     @HiveField(12) required CategoryModel category,
     @HiveField(13) @Default([]) List<SaleModel> sales,
+    @HiveField(14) required SupplierModel supplier,
+    @HiveField(15) required SeasonModel season,
   }) = _ProductModel;
 
   factory ProductModel.fromJson(Map<String, dynamic> json) =>
@@ -41,6 +43,35 @@ class SaleModel with _$SaleModel {
 
   factory SaleModel.fromJson(Map<String, dynamic> json) =>
       _$SaleModelFromJson(json);
+}
+
+@freezed
+class SupplierModel with _$SupplierModel {
+  @HiveType(typeId: 3, adapterName: 'SupplierModelAdapter')
+  const factory SupplierModel({
+    @HiveField(0) required int id,
+    @HiveField(1) required String name,
+    @HiveField(2) required String contact,
+    @HiveField(3) required String region,
+    @HiveField(4) required double rating,
+  }) = _SupplierModel;
+
+  factory SupplierModel.fromJson(Map<String, dynamic> json) =>
+      _$SupplierModelFromJson(json);
+}
+
+@freezed
+class SeasonModel with _$SeasonModel {
+  @HiveType(typeId: 4, adapterName: 'SeasonModelAdapter')
+  const factory SeasonModel({
+    @HiveField(0) required int id,
+    @HiveField(1) required String name,
+    @HiveField(2) required int startMonth,
+    @HiveField(3) required int endMonth,
+  }) = _SeasonModel;
+
+  factory SeasonModel.fromJson(Map<String, dynamic> json) =>
+      _$SeasonModelFromJson(json);
 }
 
 @freezed
@@ -73,6 +104,8 @@ extension ProductModelX on ProductModel {
         categoryName: category.name,
         categoryIcon: category.icon,
         sales: sales.map((s) => s.toEntity()).toList(),
+        supplier: supplier.toEntity(),
+        season: season.toEntity(),
       );
 }
 
@@ -82,6 +115,25 @@ extension SaleModelX on SaleModel {
         quantity: quantity,
         totalPrice: totalPrice,
         soldAt: soldAt,
+      );
+}
+
+extension SupplierModelX on SupplierModel {
+  Supplier toEntity() => Supplier(
+        id: id,
+        name: name,
+        contact: contact,
+        region: region,
+        rating: rating,
+      );
+}
+
+extension SeasonModelX on SeasonModel {
+  Season toEntity() => Season(
+        id: id,
+        name: name,
+        startMonth: startMonth,
+        endMonth: endMonth,
       );
 }
 

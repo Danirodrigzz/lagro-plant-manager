@@ -16,6 +16,9 @@ void main() async {
   // Register Adapters
   Hive.registerAdapter(ProductModelAdapter());
   Hive.registerAdapter(CategoryModelAdapter());
+  Hive.registerAdapter(SaleModelAdapter());
+  Hive.registerAdapter(SupplierModelAdapter());
+  Hive.registerAdapter(SeasonModelAdapter());
 
   runApp(
     const ProviderScope(

@@ -16,6 +16,8 @@ class ProductRepositoryImpl implements IProductRepository {
     int? cursor,
     String? search,
     int? categoryId,
+    int? supplierId,
+    int? seasonId,
   }) async {
     try {
       final (models, pagination) = await _remoteDataSource.getProducts(
@@ -23,10 +25,11 @@ class ProductRepositoryImpl implements IProductRepository {
         cursor: cursor,
         search: search,
         categoryId: categoryId,
+        supplierId: supplierId,
+        seasonId: seasonId,
       );
 
-      // Only cache the first page or search results if needed, 
-      // but for this demo, let's cache what we fetch.
+      // Cache the first page of various filters
       if (cursor == null) {
         await _localDataSource.saveProducts(models);
       }
@@ -38,7 +41,7 @@ class ProductRepositoryImpl implements IProductRepository {
       if (cursor == null) {
         var cachedModels = await _localDataSource.getCachedProducts();
         
-        // Filter cache by search and category if necessary
+        // Filter cache by search
         if (search != null && search.isNotEmpty) {
           final query = search.toLowerCase();
           cachedModels = cachedModels.where((m) => 
@@ -48,16 +51,24 @@ class ProductRepositoryImpl implements IProductRepository {
           ).toList();
         }
         
+        // Filter cache by category
         if (categoryId != null) {
           cachedModels = cachedModels.where((m) => m.category.id == categoryId).toList();
+        }
+
+        // Filter cache by supplier
+        if (supplierId != null) {
+          cachedModels = cachedModels.where((m) => m.supplier.id == supplierId).toList();
+        }
+
+        // Filter cache by season
+        if (seasonId != null) {
+          cachedModels = cachedModels.where((m) => m.season.id == seasonId).toList();
         }
 
         if (cachedModels.isNotEmpty) {
           final entities = cachedModels.map((m) => m.toEntity()).toList();
           return (entities, null as int?, false);
-        } else if (search != null || categoryId != null) {
-          // If we were searching/filtering and found nothing in cache, return empty
-          return (<Product>[], null as int?, false);
         }
       }
       rethrow;
@@ -79,6 +90,18 @@ class ProductRepositoryImpl implements IProductRepository {
   @override
   Future<List<Category>> getCategories() async {
     final models = await _remoteDataSource.getCategories();
+    return models.map((m) => m.toEntity()).toList();
+  }
+
+  @override
+  Future<List<Supplier>> getSuppliers() async {
+    final models = await _remoteDataSource.getSuppliers();
+    return models.map((m) => m.toEntity()).toList();
+  }
+
+  @override
+  Future<List<Season>> getSeasons() async {
+    final models = await _remoteDataSource.getSeasons();
     return models.map((m) => m.toEntity()).toList();
   }
 }

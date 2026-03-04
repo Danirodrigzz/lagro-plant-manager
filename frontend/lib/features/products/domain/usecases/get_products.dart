@@ -11,12 +11,16 @@ class GetProductsUseCase {
     int? cursor,
     String? search,
     int? categoryId,
+    int? supplierId,
+    int? seasonId,
   }) {
     return _repository.getProducts(
       limit: limit,
       cursor: cursor,
       search: search,
       categoryId: categoryId,
+      supplierId: supplierId,
+      seasonId: seasonId,
     );
   }
 }

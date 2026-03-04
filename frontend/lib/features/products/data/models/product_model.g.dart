@@ -31,13 +31,15 @@ class ProductModelAdapter extends TypeAdapter<_$ProductModelImpl> {
       createdAt: fields[11] as DateTime,
       category: fields[12] as CategoryModel,
       sales: (fields[13] as List).cast<SaleModel>(),
+      supplier: fields[14] as SupplierModel,
+      season: fields[15] as SeasonModel,
     );
   }
 
   @override
   void write(BinaryWriter writer, _$ProductModelImpl obj) {
     writer
-      ..writeByte(14)
+      ..writeByte(16)
       ..writeByte(0)
       ..write(obj.id)
       ..writeByte(1)
@@ -64,6 +66,10 @@ class ProductModelAdapter extends TypeAdapter<_$ProductModelImpl> {
       ..write(obj.createdAt)
       ..writeByte(12)
       ..write(obj.category)
+      ..writeByte(14)
+      ..write(obj.supplier)
+      ..writeByte(15)
+      ..write(obj.season)
       ..writeByte(13)
       ..write(obj.sales);
   }
@@ -118,6 +124,95 @@ class SaleModelAdapter extends TypeAdapter<_$SaleModelImpl> {
   bool operator ==(Object other) =>
       identical(this, other) ||
       other is SaleModelAdapter &&
+          runtimeType == other.runtimeType &&
+          typeId == other.typeId;
+}
+
+class SupplierModelAdapter extends TypeAdapter<_$SupplierModelImpl> {
+  @override
+  final int typeId = 3;
+
+  @override
+  _$SupplierModelImpl read(BinaryReader reader) {
+    final numOfFields = reader.readByte();
+    final fields = <int, dynamic>{
+      for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
+    };
+    return _$SupplierModelImpl(
+      id: fields[0] as int,
+      name: fields[1] as String,
+      contact: fields[2] as String,
+      region: fields[3] as String,
+      rating: fields[4] as double,
+    );
+  }
+
+  @override
+  void write(BinaryWriter writer, _$SupplierModelImpl obj) {
+    writer
+      ..writeByte(5)
+      ..writeByte(0)
+      ..write(obj.id)
+      ..writeByte(1)
+      ..write(obj.name)
+      ..writeByte(2)
+      ..write(obj.contact)
+      ..writeByte(3)
+      ..write(obj.region)
+      ..writeByte(4)
+      ..write(obj.rating);
+  }
+
+  @override
+  int get hashCode => typeId.hashCode;
+
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      other is SupplierModelAdapter &&
+          runtimeType == other.runtimeType &&
+          typeId == other.typeId;
+}
+
+class SeasonModelAdapter extends TypeAdapter<_$SeasonModelImpl> {
+  @override
+  final int typeId = 4;
+
+  @override
+  _$SeasonModelImpl read(BinaryReader reader) {
+    final numOfFields = reader.readByte();
+    final fields = <int, dynamic>{
+      for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
+    };
+    return _$SeasonModelImpl(
+      id: fields[0] as int,
+      name: fields[1] as String,
+      startMonth: fields[2] as int,
+      endMonth: fields[3] as int,
+    );
+  }
+
+  @override
+  void write(BinaryWriter writer, _$SeasonModelImpl obj) {
+    writer
+      ..writeByte(4)
+      ..writeByte(0)
+      ..write(obj.id)
+      ..writeByte(1)
+      ..write(obj.name)
+      ..writeByte(2)
+      ..write(obj.startMonth)
+      ..writeByte(3)
+      ..write(obj.endMonth);
+  }
+
+  @override
+  int get hashCode => typeId.hashCode;
+
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      other is SeasonModelAdapter &&
           runtimeType == other.runtimeType &&
           typeId == other.typeId;
 }
@@ -186,6 +281,9 @@ _$ProductModelImpl _$$ProductModelImplFromJson(Map<String, dynamic> json) =>
               ?.map((e) => SaleModel.fromJson(e as Map<String, dynamic>))
               .toList() ??
           const [],
+      supplier:
+          SupplierModel.fromJson(json['supplier'] as Map<String, dynamic>),
+      season: SeasonModel.fromJson(json['season'] as Map<String, dynamic>),
     );
 
 Map<String, dynamic> _$$ProductModelImplToJson(_$ProductModelImpl instance) =>
@@ -204,6 +302,8 @@ Map<String, dynamic> _$$ProductModelImplToJson(_$ProductModelImpl instance) =>
       'createdAt': instance.createdAt.toIso8601String(),
       'category': instance.category,
       'sales': instance.sales,
+      'supplier': instance.supplier,
+      'season': instance.season,
     };
 
 _$SaleModelImpl _$$SaleModelImplFromJson(Map<String, dynamic> json) =>
@@ -220,6 +320,40 @@ Map<String, dynamic> _$$SaleModelImplToJson(_$SaleModelImpl instance) =>
       'quantity': instance.quantity,
       'totalPrice': instance.totalPrice,
       'soldAt': instance.soldAt.toIso8601String(),
+    };
+
+_$SupplierModelImpl _$$SupplierModelImplFromJson(Map<String, dynamic> json) =>
+    _$SupplierModelImpl(
+      id: (json['id'] as num).toInt(),
+      name: json['name'] as String,
+      contact: json['contact'] as String,
+      region: json['region'] as String,
+      rating: (json['rating'] as num).toDouble(),
+    );
+
+Map<String, dynamic> _$$SupplierModelImplToJson(_$SupplierModelImpl instance) =>
+    <String, dynamic>{
+      'id': instance.id,
+      'name': instance.name,
+      'contact': instance.contact,
+      'region': instance.region,
+      'rating': instance.rating,
+    };
+
+_$SeasonModelImpl _$$SeasonModelImplFromJson(Map<String, dynamic> json) =>
+    _$SeasonModelImpl(
+      id: (json['id'] as num).toInt(),
+      name: json['name'] as String,
+      startMonth: (json['startMonth'] as num).toInt(),
+      endMonth: (json['endMonth'] as num).toInt(),
+    );
+
+Map<String, dynamic> _$$SeasonModelImplToJson(_$SeasonModelImpl instance) =>
+    <String, dynamic>{
+      'id': instance.id,
+      'name': instance.name,
+      'startMonth': instance.startMonth,
+      'endMonth': instance.endMonth,
     };
 
 _$CategoryModelImpl _$$CategoryModelImplFromJson(Map<String, dynamic> json) =>
