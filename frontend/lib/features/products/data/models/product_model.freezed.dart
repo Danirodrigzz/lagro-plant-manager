@@ -48,6 +48,10 @@ mixin _$ProductModel {
   CategoryModel get category => throw _privateConstructorUsedError;
   @HiveField(13)
   List<SaleModel> get sales => throw _privateConstructorUsedError;
+  @HiveField(14)
+  SupplierModel get supplier => throw _privateConstructorUsedError;
+  @HiveField(15)
+  SeasonModel get season => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -75,9 +79,13 @@ abstract class $ProductModelCopyWith<$Res> {
       @HiveField(10) String waterFrequency,
       @HiveField(11) DateTime createdAt,
       @HiveField(12) CategoryModel category,
-      @HiveField(13) List<SaleModel> sales});
+      @HiveField(13) List<SaleModel> sales,
+      @HiveField(14) SupplierModel supplier,
+      @HiveField(15) SeasonModel season});
 
   $CategoryModelCopyWith<$Res> get category;
+  $SupplierModelCopyWith<$Res> get supplier;
+  $SeasonModelCopyWith<$Res> get season;
 }
 
 /// @nodoc
@@ -107,6 +115,8 @@ class _$ProductModelCopyWithImpl<$Res, $Val extends ProductModel>
     Object? createdAt = null,
     Object? category = null,
     Object? sales = null,
+    Object? supplier = null,
+    Object? season = null,
   }) {
     return _then(_value.copyWith(
       id: null == id
@@ -165,6 +175,14 @@ class _$ProductModelCopyWithImpl<$Res, $Val extends ProductModel>
           ? _value.sales
           : sales // ignore: cast_nullable_to_non_nullable
               as List<SaleModel>,
+      supplier: null == supplier
+          ? _value.supplier
+          : supplier // ignore: cast_nullable_to_non_nullable
+              as SupplierModel,
+      season: null == season
+          ? _value.season
+          : season // ignore: cast_nullable_to_non_nullable
+              as SeasonModel,
     ) as $Val);
   }
 
@@ -173,6 +191,22 @@ class _$ProductModelCopyWithImpl<$Res, $Val extends ProductModel>
   $CategoryModelCopyWith<$Res> get category {
     return $CategoryModelCopyWith<$Res>(_value.category, (value) {
       return _then(_value.copyWith(category: value) as $Val);
+    });
+  }
+
+  @override
+  @pragma('vm:prefer-inline')
+  $SupplierModelCopyWith<$Res> get supplier {
+    return $SupplierModelCopyWith<$Res>(_value.supplier, (value) {
+      return _then(_value.copyWith(supplier: value) as $Val);
+    });
+  }
+
+  @override
+  @pragma('vm:prefer-inline')
+  $SeasonModelCopyWith<$Res> get season {
+    return $SeasonModelCopyWith<$Res>(_value.season, (value) {
+      return _then(_value.copyWith(season: value) as $Val);
     });
   }
 }
@@ -199,10 +233,16 @@ abstract class _$$ProductModelImplCopyWith<$Res>
       @HiveField(10) String waterFrequency,
       @HiveField(11) DateTime createdAt,
       @HiveField(12) CategoryModel category,
-      @HiveField(13) List<SaleModel> sales});
+      @HiveField(13) List<SaleModel> sales,
+      @HiveField(14) SupplierModel supplier,
+      @HiveField(15) SeasonModel season});
 
   @override
   $CategoryModelCopyWith<$Res> get category;
+  @override
+  $SupplierModelCopyWith<$Res> get supplier;
+  @override
+  $SeasonModelCopyWith<$Res> get season;
 }
 
 /// @nodoc
@@ -230,6 +270,8 @@ class __$$ProductModelImplCopyWithImpl<$Res>
     Object? createdAt = null,
     Object? category = null,
     Object? sales = null,
+    Object? supplier = null,
+    Object? season = null,
   }) {
     return _then(_$ProductModelImpl(
       id: null == id
@@ -288,6 +330,14 @@ class __$$ProductModelImplCopyWithImpl<$Res>
           ? _value._sales
           : sales // ignore: cast_nullable_to_non_nullable
               as List<SaleModel>,
+      supplier: null == supplier
+          ? _value.supplier
+          : supplier // ignore: cast_nullable_to_non_nullable
+              as SupplierModel,
+      season: null == season
+          ? _value.season
+          : season // ignore: cast_nullable_to_non_nullable
+              as SeasonModel,
     ));
   }
 }
@@ -310,7 +360,9 @@ class _$ProductModelImpl implements _ProductModel {
       @HiveField(10) required this.waterFrequency,
       @HiveField(11) required this.createdAt,
       @HiveField(12) required this.category,
-      @HiveField(13) final List<SaleModel> sales = const []})
+      @HiveField(13) final List<SaleModel> sales = const [],
+      @HiveField(14) required this.supplier,
+      @HiveField(15) required this.season})
       : _sales = sales;
 
   factory _$ProductModelImpl.fromJson(Map<String, dynamic> json) =>
@@ -366,8 +418,15 @@ class _$ProductModelImpl implements _ProductModel {
   }
 
   @override
+  @HiveField(14)
+  final SupplierModel supplier;
+  @override
+  @HiveField(15)
+  final SeasonModel season;
+
+  @override
   String toString() {
-    return 'ProductModel(id: $id, name: $name, scientificName: $scientificName, description: $description, price: $price, stock: $stock, imageUrl: $imageUrl, careDifficulty: $careDifficulty, originCountry: $originCountry, sunlightNeeds: $sunlightNeeds, waterFrequency: $waterFrequency, createdAt: $createdAt, category: $category, sales: $sales)';
+    return 'ProductModel(id: $id, name: $name, scientificName: $scientificName, description: $description, price: $price, stock: $stock, imageUrl: $imageUrl, careDifficulty: $careDifficulty, originCountry: $originCountry, sunlightNeeds: $sunlightNeeds, waterFrequency: $waterFrequency, createdAt: $createdAt, category: $category, sales: $sales, supplier: $supplier, season: $season)';
   }
 
   @override
@@ -397,7 +456,10 @@ class _$ProductModelImpl implements _ProductModel {
                 other.createdAt == createdAt) &&
             (identical(other.category, category) ||
                 other.category == category) &&
-            const DeepCollectionEquality().equals(other._sales, _sales));
+            const DeepCollectionEquality().equals(other._sales, _sales) &&
+            (identical(other.supplier, supplier) ||
+                other.supplier == supplier) &&
+            (identical(other.season, season) || other.season == season));
   }
 
   @JsonKey(ignore: true)
@@ -417,7 +479,9 @@ class _$ProductModelImpl implements _ProductModel {
       waterFrequency,
       createdAt,
       category,
-      const DeepCollectionEquality().hash(_sales));
+      const DeepCollectionEquality().hash(_sales),
+      supplier,
+      season);
 
   @JsonKey(ignore: true)
   @override
@@ -448,7 +512,9 @@ abstract class _ProductModel implements ProductModel {
       @HiveField(10) required final String waterFrequency,
       @HiveField(11) required final DateTime createdAt,
       @HiveField(12) required final CategoryModel category,
-      @HiveField(13) final List<SaleModel> sales}) = _$ProductModelImpl;
+      @HiveField(13) final List<SaleModel> sales,
+      @HiveField(14) required final SupplierModel supplier,
+      @HiveField(15) required final SeasonModel season}) = _$ProductModelImpl;
 
   factory _ProductModel.fromJson(Map<String, dynamic> json) =
       _$ProductModelImpl.fromJson;
@@ -495,6 +561,12 @@ abstract class _ProductModel implements ProductModel {
   @override
   @HiveField(13)
   List<SaleModel> get sales;
+  @override
+  @HiveField(14)
+  SupplierModel get supplier;
+  @override
+  @HiveField(15)
+  SeasonModel get season;
   @override
   @JsonKey(ignore: true)
   _$$ProductModelImplCopyWith<_$ProductModelImpl> get copyWith =>
@@ -713,6 +785,458 @@ abstract class _SaleModel implements SaleModel {
   @override
   @JsonKey(ignore: true)
   _$$SaleModelImplCopyWith<_$SaleModelImpl> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+SupplierModel _$SupplierModelFromJson(Map<String, dynamic> json) {
+  return _SupplierModel.fromJson(json);
+}
+
+/// @nodoc
+mixin _$SupplierModel {
+  @HiveField(0)
+  int get id => throw _privateConstructorUsedError;
+  @HiveField(1)
+  String get name => throw _privateConstructorUsedError;
+  @HiveField(2)
+  String get contact => throw _privateConstructorUsedError;
+  @HiveField(3)
+  String get region => throw _privateConstructorUsedError;
+  @HiveField(4)
+  double get rating => throw _privateConstructorUsedError;
+
+  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
+  @JsonKey(ignore: true)
+  $SupplierModelCopyWith<SupplierModel> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class $SupplierModelCopyWith<$Res> {
+  factory $SupplierModelCopyWith(
+          SupplierModel value, $Res Function(SupplierModel) then) =
+      _$SupplierModelCopyWithImpl<$Res, SupplierModel>;
+  @useResult
+  $Res call(
+      {@HiveField(0) int id,
+      @HiveField(1) String name,
+      @HiveField(2) String contact,
+      @HiveField(3) String region,
+      @HiveField(4) double rating});
+}
+
+/// @nodoc
+class _$SupplierModelCopyWithImpl<$Res, $Val extends SupplierModel>
+    implements $SupplierModelCopyWith<$Res> {
+  _$SupplierModelCopyWithImpl(this._value, this._then);
+
+  // ignore: unused_field
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? id = null,
+    Object? name = null,
+    Object? contact = null,
+    Object? region = null,
+    Object? rating = null,
+  }) {
+    return _then(_value.copyWith(
+      id: null == id
+          ? _value.id
+          : id // ignore: cast_nullable_to_non_nullable
+              as int,
+      name: null == name
+          ? _value.name
+          : name // ignore: cast_nullable_to_non_nullable
+              as String,
+      contact: null == contact
+          ? _value.contact
+          : contact // ignore: cast_nullable_to_non_nullable
+              as String,
+      region: null == region
+          ? _value.region
+          : region // ignore: cast_nullable_to_non_nullable
+              as String,
+      rating: null == rating
+          ? _value.rating
+          : rating // ignore: cast_nullable_to_non_nullable
+              as double,
+    ) as $Val);
+  }
+}
+
+/// @nodoc
+abstract class _$$SupplierModelImplCopyWith<$Res>
+    implements $SupplierModelCopyWith<$Res> {
+  factory _$$SupplierModelImplCopyWith(
+          _$SupplierModelImpl value, $Res Function(_$SupplierModelImpl) then) =
+      __$$SupplierModelImplCopyWithImpl<$Res>;
+  @override
+  @useResult
+  $Res call(
+      {@HiveField(0) int id,
+      @HiveField(1) String name,
+      @HiveField(2) String contact,
+      @HiveField(3) String region,
+      @HiveField(4) double rating});
+}
+
+/// @nodoc
+class __$$SupplierModelImplCopyWithImpl<$Res>
+    extends _$SupplierModelCopyWithImpl<$Res, _$SupplierModelImpl>
+    implements _$$SupplierModelImplCopyWith<$Res> {
+  __$$SupplierModelImplCopyWithImpl(
+      _$SupplierModelImpl _value, $Res Function(_$SupplierModelImpl) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? id = null,
+    Object? name = null,
+    Object? contact = null,
+    Object? region = null,
+    Object? rating = null,
+  }) {
+    return _then(_$SupplierModelImpl(
+      id: null == id
+          ? _value.id
+          : id // ignore: cast_nullable_to_non_nullable
+              as int,
+      name: null == name
+          ? _value.name
+          : name // ignore: cast_nullable_to_non_nullable
+              as String,
+      contact: null == contact
+          ? _value.contact
+          : contact // ignore: cast_nullable_to_non_nullable
+              as String,
+      region: null == region
+          ? _value.region
+          : region // ignore: cast_nullable_to_non_nullable
+              as String,
+      rating: null == rating
+          ? _value.rating
+          : rating // ignore: cast_nullable_to_non_nullable
+              as double,
+    ));
+  }
+}
+
+/// @nodoc
+@JsonSerializable()
+@HiveType(typeId: 3, adapterName: 'SupplierModelAdapter')
+class _$SupplierModelImpl implements _SupplierModel {
+  const _$SupplierModelImpl(
+      {@HiveField(0) required this.id,
+      @HiveField(1) required this.name,
+      @HiveField(2) required this.contact,
+      @HiveField(3) required this.region,
+      @HiveField(4) required this.rating});
+
+  factory _$SupplierModelImpl.fromJson(Map<String, dynamic> json) =>
+      _$$SupplierModelImplFromJson(json);
+
+  @override
+  @HiveField(0)
+  final int id;
+  @override
+  @HiveField(1)
+  final String name;
+  @override
+  @HiveField(2)
+  final String contact;
+  @override
+  @HiveField(3)
+  final String region;
+  @override
+  @HiveField(4)
+  final double rating;
+
+  @override
+  String toString() {
+    return 'SupplierModel(id: $id, name: $name, contact: $contact, region: $region, rating: $rating)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$SupplierModelImpl &&
+            (identical(other.id, id) || other.id == id) &&
+            (identical(other.name, name) || other.name == name) &&
+            (identical(other.contact, contact) || other.contact == contact) &&
+            (identical(other.region, region) || other.region == region) &&
+            (identical(other.rating, rating) || other.rating == rating));
+  }
+
+  @JsonKey(ignore: true)
+  @override
+  int get hashCode =>
+      Object.hash(runtimeType, id, name, contact, region, rating);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$SupplierModelImplCopyWith<_$SupplierModelImpl> get copyWith =>
+      __$$SupplierModelImplCopyWithImpl<_$SupplierModelImpl>(this, _$identity);
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$$SupplierModelImplToJson(
+      this,
+    );
+  }
+}
+
+abstract class _SupplierModel implements SupplierModel {
+  const factory _SupplierModel(
+      {@HiveField(0) required final int id,
+      @HiveField(1) required final String name,
+      @HiveField(2) required final String contact,
+      @HiveField(3) required final String region,
+      @HiveField(4) required final double rating}) = _$SupplierModelImpl;
+
+  factory _SupplierModel.fromJson(Map<String, dynamic> json) =
+      _$SupplierModelImpl.fromJson;
+
+  @override
+  @HiveField(0)
+  int get id;
+  @override
+  @HiveField(1)
+  String get name;
+  @override
+  @HiveField(2)
+  String get contact;
+  @override
+  @HiveField(3)
+  String get region;
+  @override
+  @HiveField(4)
+  double get rating;
+  @override
+  @JsonKey(ignore: true)
+  _$$SupplierModelImplCopyWith<_$SupplierModelImpl> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+SeasonModel _$SeasonModelFromJson(Map<String, dynamic> json) {
+  return _SeasonModel.fromJson(json);
+}
+
+/// @nodoc
+mixin _$SeasonModel {
+  @HiveField(0)
+  int get id => throw _privateConstructorUsedError;
+  @HiveField(1)
+  String get name => throw _privateConstructorUsedError;
+  @HiveField(2)
+  int get startMonth => throw _privateConstructorUsedError;
+  @HiveField(3)
+  int get endMonth => throw _privateConstructorUsedError;
+
+  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
+  @JsonKey(ignore: true)
+  $SeasonModelCopyWith<SeasonModel> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class $SeasonModelCopyWith<$Res> {
+  factory $SeasonModelCopyWith(
+          SeasonModel value, $Res Function(SeasonModel) then) =
+      _$SeasonModelCopyWithImpl<$Res, SeasonModel>;
+  @useResult
+  $Res call(
+      {@HiveField(0) int id,
+      @HiveField(1) String name,
+      @HiveField(2) int startMonth,
+      @HiveField(3) int endMonth});
+}
+
+/// @nodoc
+class _$SeasonModelCopyWithImpl<$Res, $Val extends SeasonModel>
+    implements $SeasonModelCopyWith<$Res> {
+  _$SeasonModelCopyWithImpl(this._value, this._then);
+
+  // ignore: unused_field
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? id = null,
+    Object? name = null,
+    Object? startMonth = null,
+    Object? endMonth = null,
+  }) {
+    return _then(_value.copyWith(
+      id: null == id
+          ? _value.id
+          : id // ignore: cast_nullable_to_non_nullable
+              as int,
+      name: null == name
+          ? _value.name
+          : name // ignore: cast_nullable_to_non_nullable
+              as String,
+      startMonth: null == startMonth
+          ? _value.startMonth
+          : startMonth // ignore: cast_nullable_to_non_nullable
+              as int,
+      endMonth: null == endMonth
+          ? _value.endMonth
+          : endMonth // ignore: cast_nullable_to_non_nullable
+              as int,
+    ) as $Val);
+  }
+}
+
+/// @nodoc
+abstract class _$$SeasonModelImplCopyWith<$Res>
+    implements $SeasonModelCopyWith<$Res> {
+  factory _$$SeasonModelImplCopyWith(
+          _$SeasonModelImpl value, $Res Function(_$SeasonModelImpl) then) =
+      __$$SeasonModelImplCopyWithImpl<$Res>;
+  @override
+  @useResult
+  $Res call(
+      {@HiveField(0) int id,
+      @HiveField(1) String name,
+      @HiveField(2) int startMonth,
+      @HiveField(3) int endMonth});
+}
+
+/// @nodoc
+class __$$SeasonModelImplCopyWithImpl<$Res>
+    extends _$SeasonModelCopyWithImpl<$Res, _$SeasonModelImpl>
+    implements _$$SeasonModelImplCopyWith<$Res> {
+  __$$SeasonModelImplCopyWithImpl(
+      _$SeasonModelImpl _value, $Res Function(_$SeasonModelImpl) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? id = null,
+    Object? name = null,
+    Object? startMonth = null,
+    Object? endMonth = null,
+  }) {
+    return _then(_$SeasonModelImpl(
+      id: null == id
+          ? _value.id
+          : id // ignore: cast_nullable_to_non_nullable
+              as int,
+      name: null == name
+          ? _value.name
+          : name // ignore: cast_nullable_to_non_nullable
+              as String,
+      startMonth: null == startMonth
+          ? _value.startMonth
+          : startMonth // ignore: cast_nullable_to_non_nullable
+              as int,
+      endMonth: null == endMonth
+          ? _value.endMonth
+          : endMonth // ignore: cast_nullable_to_non_nullable
+              as int,
+    ));
+  }
+}
+
+/// @nodoc
+@JsonSerializable()
+@HiveType(typeId: 4, adapterName: 'SeasonModelAdapter')
+class _$SeasonModelImpl implements _SeasonModel {
+  const _$SeasonModelImpl(
+      {@HiveField(0) required this.id,
+      @HiveField(1) required this.name,
+      @HiveField(2) required this.startMonth,
+      @HiveField(3) required this.endMonth});
+
+  factory _$SeasonModelImpl.fromJson(Map<String, dynamic> json) =>
+      _$$SeasonModelImplFromJson(json);
+
+  @override
+  @HiveField(0)
+  final int id;
+  @override
+  @HiveField(1)
+  final String name;
+  @override
+  @HiveField(2)
+  final int startMonth;
+  @override
+  @HiveField(3)
+  final int endMonth;
+
+  @override
+  String toString() {
+    return 'SeasonModel(id: $id, name: $name, startMonth: $startMonth, endMonth: $endMonth)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$SeasonModelImpl &&
+            (identical(other.id, id) || other.id == id) &&
+            (identical(other.name, name) || other.name == name) &&
+            (identical(other.startMonth, startMonth) ||
+                other.startMonth == startMonth) &&
+            (identical(other.endMonth, endMonth) ||
+                other.endMonth == endMonth));
+  }
+
+  @JsonKey(ignore: true)
+  @override
+  int get hashCode => Object.hash(runtimeType, id, name, startMonth, endMonth);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$SeasonModelImplCopyWith<_$SeasonModelImpl> get copyWith =>
+      __$$SeasonModelImplCopyWithImpl<_$SeasonModelImpl>(this, _$identity);
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$$SeasonModelImplToJson(
+      this,
+    );
+  }
+}
+
+abstract class _SeasonModel implements SeasonModel {
+  const factory _SeasonModel(
+      {@HiveField(0) required final int id,
+      @HiveField(1) required final String name,
+      @HiveField(2) required final int startMonth,
+      @HiveField(3) required final int endMonth}) = _$SeasonModelImpl;
+
+  factory _SeasonModel.fromJson(Map<String, dynamic> json) =
+      _$SeasonModelImpl.fromJson;
+
+  @override
+  @HiveField(0)
+  int get id;
+  @override
+  @HiveField(1)
+  String get name;
+  @override
+  @HiveField(2)
+  int get startMonth;
+  @override
+  @HiveField(3)
+  int get endMonth;
+  @override
+  @JsonKey(ignore: true)
+  _$$SeasonModelImplCopyWith<_$SeasonModelImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
 

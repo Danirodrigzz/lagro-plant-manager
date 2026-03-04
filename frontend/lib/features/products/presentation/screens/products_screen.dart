@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:lagro_plant_manager/core/utils/page_transitions.dart';
 import 'package:lagro_plant_manager/core/widgets/shimmer_widgets.dart';
+import 'package:lagro_plant_manager/features/products/presentation/providers/products_providers.dart';
 import 'package:lagro_plant_manager/features/products/presentation/providers/products_notifiers.dart';
 import 'package:lagro_plant_manager/features/products/presentation/providers/theme_provider.dart';
 import 'package:lagro_plant_manager/features/products/presentation/screens/product_detail_screen.dart';
@@ -73,6 +74,34 @@ class ProductsScreen extends ConsumerWidget {
               child: CategoryChips(
                 selectedCategoryId: state.categoryId,
                 onCategorySelected: (id) => notifier.updateCategory(id),
+              ),
+            ),
+
+            // Supplier Filters
+            SliverToBoxAdapter(
+              child: ref.watch(suppliersProvider).when(
+                data: (suppliers) => _FilterHorizontalList(
+                  title: 'Proveedores',
+                  items: suppliers.map((s) => _FilterItem(id: s.id, name: s.name)).toList(),
+                  selectedId: state.supplierId,
+                  onSelected: (id) => notifier.updateSupplier(id),
+                ),
+                loading: () => const SizedBox.shrink(),
+                error: (_, __) => const SizedBox.shrink(),
+              ),
+            ),
+
+            // Season Filters
+            SliverToBoxAdapter(
+              child: ref.watch(seasonsProvider).when(
+                data: (seasons) => _FilterHorizontalList(
+                  title: 'Temporadas',
+                  items: seasons.map((s) => _FilterItem(id: s.id, name: s.name)).toList(),
+                  selectedId: state.seasonId,
+                  onSelected: (id) => notifier.updateSeason(id),
+                ),
+                loading: () => const SizedBox.shrink(),
+                error: (_, __) => const SizedBox.shrink(),
               ),
             ),
 
@@ -191,7 +220,7 @@ class ProductsScreen extends ConsumerWidget {
                 hasScrollBody: false,
                 child: EmptyStateWidget(
                   title: '¡Ups! Algo salió mal',
-                  message: 'No pudimos cargar el catálogo. Verifica tu conexión e intenta de nuevo.',
+                  message: state.error ?? 'No pudimos cargar el catálogo. Verifica tu conexión e intenta de nuevo.',
                   actionLabel: 'Reintentar',
                   onAction: () => notifier.refresh(),
                 ),
@@ -199,6 +228,74 @@ class ProductsScreen extends ConsumerWidget {
           ],
         ),
       ),
+    );
+  }
+}
+
+class _FilterItem {
+  final int id;
+  final String name;
+  _FilterItem({required this.id, required this.name});
+}
+
+class _FilterHorizontalList extends StatelessWidget {
+  final String title;
+  final List<_FilterItem> items;
+  final int? selectedId;
+  final Function(int?) onSelected;
+
+  const _FilterHorizontalList({
+    required this.title,
+    required this.items,
+    this.selectedId,
+    required this.onSelected,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+          child: Text(
+            title,
+            style: Theme.of(context).textTheme.titleSmall?.copyWith(
+                  fontWeight: FontWeight.bold,
+                  color: Colors.grey[600],
+                ),
+          ),
+        ),
+        SizedBox(
+          height: 40,
+          child: ListView.builder(
+            scrollDirection: Axis.horizontal,
+            padding: const EdgeInsets.symmetric(horizontal: 12),
+            itemCount: items.length + 1,
+            itemBuilder: (context, index) {
+              if (index == 0) {
+                return Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 4),
+                  child: FilterChip(
+                    label: const Text('Todos'),
+                    selected: selectedId == null,
+                    onSelected: (selected) => onSelected(null),
+                  ),
+                );
+              }
+              final item = items[index - 1];
+              return Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 4),
+                child: FilterChip(
+                  label: Text(item.name),
+                  selected: selectedId == item.id,
+                  onSelected: (selected) => onSelected(selected ? item.id : null),
+                ),
+              );
+            },
+          ),
+        ),
+      ],
     );
   }
 }

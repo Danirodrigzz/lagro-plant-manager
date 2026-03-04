@@ -5,7 +5,7 @@ import { Sale } from '@prisma/client';
 
 /**
  * Concrete implementation of IProductRepository using Prisma.
- *
+ * 
  * Single Responsibility: Only handles data access logic for products.
  * Dependency Inversion: Implements the IProductRepository interface,
  * allowing the service layer to depend on the abstraction.
@@ -13,13 +13,9 @@ import { Sale } from '@prisma/client';
 export class ProductRepository implements IProductRepository {
     /**
      * Fetches paginated products with cursor-based pagination.
-     *
-     * Why cursor-based? With 50k records, OFFSET-based pagination
-     * degrades linearly — OFFSET 40000 still scans 40k rows.
-     * Cursor-based uses WHERE id > cursor which leverages the PK index → O(1).
      */
     async findAll(params: PaginationParams): Promise<PaginatedResponse<ProductWithRelations>> {
-        const { limit, cursor, search, categoryId } = params;
+        const { limit, cursor, search, categoryId, supplierId, seasonId } = params;
 
         // Build dynamic where clause
         const where: any = {};
@@ -34,6 +30,14 @@ export class ProductRepository implements IProductRepository {
 
         if (categoryId) {
             where.categoryId = categoryId;
+        }
+
+        if (supplierId) {
+            where.supplierId = supplierId;
+        }
+
+        if (seasonId) {
+            where.seasonId = seasonId;
         }
 
         // Cursor-based pagination

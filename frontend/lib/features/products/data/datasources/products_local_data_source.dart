@@ -2,7 +2,7 @@ import 'package:hive/hive.dart';
 import '../models/product_model.dart';
 
 class ProductsLocalDataSource {
-  static const String boxName = 'products_box';
+  static const String boxName = 'products_box_v2';
 
   Future<void> saveProducts(List<ProductModel> products) async {
     final box = await Hive.openBox<ProductModel>(boxName);

@@ -25,6 +25,8 @@ export class ProductController {
                 cursor: req.query.cursor ? parseInt(req.query.cursor as string) : undefined,
                 search: req.query.search as string | undefined,
                 categoryId: req.query.categoryId ? parseInt(req.query.categoryId as string) : undefined,
+                supplierId: req.query.supplierId ? parseInt(req.query.supplierId as string) : undefined,
+                seasonId: req.query.seasonId ? parseInt(req.query.seasonId as string) : undefined,
             };
 
             const result = await this.productService.getProducts(params);

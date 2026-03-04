@@ -14,6 +14,8 @@ class Product {
   final String categoryName;
   final String categoryIcon;
   final List<Sale> sales;
+  final Supplier supplier;
+  final Season season;
 
   Product({
     required this.id,
@@ -30,6 +32,8 @@ class Product {
     required this.createdAt,
     required this.categoryName,
     required this.categoryIcon,
+    required this.supplier,
+    required this.season,
     this.sales = const [],
   });
 }
@@ -45,6 +49,36 @@ class Sale {
     required this.quantity,
     required this.totalPrice,
     required this.soldAt,
+  });
+}
+
+class Supplier {
+  final int id;
+  final String name;
+  final String contact;
+  final String region;
+  final double rating;
+
+  Supplier({
+    required this.id,
+    required this.name,
+    required this.contact,
+    required this.region,
+    required this.rating,
+  });
+}
+
+class Season {
+  final int id;
+  final String name;
+  final int startMonth;
+  final int endMonth;
+
+  Season({
+    required this.id,
+    required this.name,
+    required this.startMonth,
+    required this.endMonth,
   });
 }
 

@@ -11,6 +11,8 @@ class ProductsState {
   final String? error;
   final String? search;
   final int? categoryId;
+  final int? supplierId;
+  final int? seasonId;
 
   ProductsState({
     required this.products,
@@ -20,6 +22,8 @@ class ProductsState {
     this.error,
     this.search,
     this.categoryId,
+    this.supplierId,
+    this.seasonId,
   });
 
   ProductsState copyWith({
@@ -30,6 +34,8 @@ class ProductsState {
     String? error,
     String? search,
     int? categoryId,
+    int? supplierId,
+    int? seasonId,
   }) {
     return ProductsState(
       products: products ?? this.products,
@@ -39,6 +45,8 @@ class ProductsState {
       error: error,
       search: search ?? this.search,
       categoryId: categoryId == -1 ? null : (categoryId ?? this.categoryId),
+      supplierId: supplierId == -1 ? null : (supplierId ?? this.supplierId),
+      seasonId: seasonId == -1 ? null : (seasonId ?? this.seasonId),
     );
   }
 }
@@ -61,6 +69,8 @@ class ProductsNotifier extends StateNotifier<ProductsState> {
         cursor: state.nextCursor,
         search: state.search,
         categoryId: state.categoryId,
+        supplierId: state.supplierId,
+        seasonId: state.seasonId,
       );
 
       state = state.copyWith(
@@ -91,7 +101,29 @@ class ProductsNotifier extends StateNotifier<ProductsState> {
   void updateCategory(int? categoryId) {
     if (state.categoryId == categoryId) return;
     state = state.copyWith(
-      categoryId: categoryId ?? -1, // Use -1 as a flag to nullify
+      categoryId: categoryId ?? -1,
+      products: [],
+      nextCursor: null,
+      hasMore: true,
+    );
+    loadNextPage();
+  }
+
+  void updateSupplier(int? supplierId) {
+    if (state.supplierId == supplierId) return;
+    state = state.copyWith(
+      supplierId: supplierId ?? -1,
+      products: [],
+      nextCursor: null,
+      hasMore: true,
+    );
+    loadNextPage();
+  }
+
+  void updateSeason(int? seasonId) {
+    if (state.seasonId == seasonId) return;
+    state = state.copyWith(
+      seasonId: seasonId ?? -1,
       products: [],
       nextCursor: null,
       hasMore: true,
@@ -111,7 +143,9 @@ class ProductsNotifier extends StateNotifier<ProductsState> {
   void clearFilters() {
     state = state.copyWith(
       search: '',
-      categoryId: -1, // Reset category
+      categoryId: -1,
+      supplierId: -1,
+      seasonId: -1,
       products: [],
       nextCursor: null,
       hasMore: true,

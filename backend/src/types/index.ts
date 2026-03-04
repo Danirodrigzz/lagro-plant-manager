@@ -29,6 +29,8 @@ export interface PaginationParams {
     cursor?: number;
     search?: string;
     categoryId?: number;
+    supplierId?: number;
+    seasonId?: number;
 }
 
 /**
