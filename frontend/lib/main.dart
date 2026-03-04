@@ -5,7 +5,7 @@ import 'core/theme/app_theme.dart';
 import 'core/constants/app_constants.dart';
 import 'features/products/data/models/product_model.dart';
 import 'features/products/presentation/providers/theme_provider.dart';
-import 'features/products/presentation/screens/products_screen.dart';
+import 'features/auth/presentation/screens/splash_screen.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -40,7 +40,7 @@ class MyApp extends ConsumerWidget {
       theme: AppTheme.lightTheme,
       darkTheme: AppTheme.darkTheme,
       themeMode: themeMode,
-      home: const ProductsScreen(),
+      home: const SplashScreen(),
     );
   }
 }

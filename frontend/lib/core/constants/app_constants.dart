@@ -1,5 +1,5 @@
 class AppConstants {
-  static const String appName = 'Lagro Plant Manager';
+  static const String appName = 'Plant Manager';
   
   // API Config
   // Use the computer's local IP for physical devices (e.g., 10.0.0.147)
