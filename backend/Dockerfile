@@ -4,14 +4,15 @@ FROM node:18-alpine AS builder
 WORKDIR /app
 
 # Copy package files and prisma schema
-COPY package*.json ./
-COPY prisma ./prisma/
+# (Paths are relative to project root because context is '.')
+COPY backend/package*.json ./
+COPY backend/prisma ./prisma/
 
-# Install all dependencies (including devDependencies for build)
+# Install dependencies (only for backend)
 RUN npm install
 
-# Copy source code
-COPY . .
+# Copy backend source code
+COPY backend/ .
 
 # Generate Prisma client and compile TypeScript
 RUN npx prisma generate
@@ -23,7 +24,7 @@ FROM node:18-alpine
 WORKDIR /app
 
 # Copy production dependencies
-COPY package*.json ./
+COPY backend/package*.json ./
 RUN npm ci --only=production
 
 # Copy prisma schema and generated client from builder
