@@ -9,6 +9,7 @@ import 'package:lagro_plant_manager/features/products/presentation/widgets/categ
 import 'package:lagro_plant_manager/features/products/presentation/widgets/product_card.dart';
 import 'package:lagro_plant_manager/features/products/presentation/widgets/search_bar_widget.dart';
 import 'package:lagro_plant_manager/features/products/presentation/widgets/empty_state_widget.dart';
+import 'package:lagro_plant_manager/features/products/presentation/widgets/offline_banner.dart';
 
 class ProductsScreen extends ConsumerWidget {
   const ProductsScreen({super.key});
@@ -50,8 +51,13 @@ class ProductsScreen extends ConsumerWidget {
                   onPressed: () => notifier.refresh(),
                   icon: const Icon(Icons.refresh),
                 ),
-                const SizedBox(width: 8),
+              const SizedBox(width: 8),
               ],
+            ),
+
+            // Real-time Offline Banner
+            const SliverToBoxAdapter(
+              child: OfflineBanner(),
             ),
 
             // Search Bar
