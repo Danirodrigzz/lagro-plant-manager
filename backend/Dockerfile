@@ -7,13 +7,13 @@ WORKDIR /app
 COPY backend/package*.json ./
 COPY backend/prisma ./prisma/
 
-# Install all dependencies (including devDependencies for build)
+# Install ALL dependencies for building
 RUN npm install
 
-# Copy backend source code
+# Copy source code
 COPY backend/ .
 
-# Generate Prisma client and compile TypeScript
+# Generate Prisma client and build TypeScript
 RUN npx prisma generate
 RUN npm run build
 
@@ -24,21 +24,21 @@ WORKDIR /app
 
 # Copy package files
 COPY backend/package*.json ./
+# Copy prisma schema (needed for client generation or runtime)
+COPY backend/prisma ./prisma/
 
-# Install production dependencies
+# Install ONLY production dependencies
+# This is cleaner and ensures we have the right binaries for alpine
 RUN npm ci --only=production
 
-# Copy EVERYTHING needed for Prisma from builder:
-# 1. The generated engine and client code (.prisma)
-# 2. The client package wrapper (@prisma/client)
-# 3. The prisma schema file
-COPY --from=builder /app/node_modules/.prisma ./node_modules/.prisma
-COPY --from=builder /app/node_modules/@prisma ./node_modules/@prisma
-COPY --from=builder /app/prisma ./prisma
+# Re-generate the Prisma client in the runtime stage
+# This ensures the engine is correctly placed in node_modules
+RUN npx prisma generate
+
+# Copy the compiled code from the builder stage
 COPY --from=builder /app/dist ./dist
 
 EXPOSE 3000
 
-# Railway will provide DATABASE_URL in env
-# We use a shell command to ensure migrations are applied before starting
+# Start migrations and then the server
 CMD npx prisma migrate deploy && node dist/server.js
