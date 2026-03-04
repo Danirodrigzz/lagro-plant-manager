@@ -1,6 +1,6 @@
 # 🌱 Lagro Plant Manager
 
-Full-stack plant catalog application built as a technical assessment for **Lagro** — agricultural workforce management software from Chile.
+Full-stack plant catalog application built for **Lagro** — agricultural workforce management software from Chile.
 
 ## 📋 Overview
 
@@ -71,7 +71,7 @@ flutter run
 
 | Decision | Rationale |
 |----------|-----------|
-| **Monorepo** | Single clone for evaluators, unified Git history |
+| **Monorepo** | Single clone for easy setup, unified Git history |
 | **Cursor-based pagination** | O(1) performance vs O(n) with OFFSET on 50k records |
 | **Clean Architecture** | Separation of concerns, testability, SOLID principles |
 | **Riverpod** | Built-in DI, compile-time safety, less boilerplate than BLoC |
@@ -87,4 +87,4 @@ Color palette based on Lagro's brand identity:
 
 ## 📄 License
 
-This project was built as a technical assessment.
+This project is proprietary software built for Lagro.
