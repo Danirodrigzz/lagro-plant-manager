@@ -13,6 +13,7 @@ class Product {
   final DateTime createdAt;
   final String categoryName;
   final String categoryIcon;
+  final List<Sale> sales;
 
   Product({
     required this.id,
@@ -29,6 +30,21 @@ class Product {
     required this.createdAt,
     required this.categoryName,
     required this.categoryIcon,
+    this.sales = const [],
+  });
+}
+
+class Sale {
+  final int id;
+  final int quantity;
+  final double totalPrice;
+  final DateTime soldAt;
+
+  Sale({
+    required this.id,
+    required this.quantity,
+    required this.totalPrice,
+    required this.soldAt,
   });
 }
 

@@ -71,4 +71,30 @@ export class ProductController {
             next(error);
         }
     };
+
+    /**
+     * GET /api/v1/products/:id/sales
+     */
+    getProductSales = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
+        try {
+            const id = parseInt(req.params.id as string);
+
+            if (isNaN(id)) {
+                res.status(400).json({
+                    success: false,
+                    error: 'Invalid product ID',
+                });
+                return;
+            }
+
+            const sales = await this.productService.getProductSales(id);
+
+            res.json({
+                success: true,
+                data: sales,
+            });
+        } catch (error) {
+            next(error);
+        }
+    };
 }

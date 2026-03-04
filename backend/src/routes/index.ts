@@ -30,6 +30,7 @@ const categoryController = new CategoryController(categoryService);
 // === Product Routes ===
 router.get('/products', productController.getProducts);
 router.get('/products/:id', productController.getProductById);
+router.get('/products/:id/sales', productController.getProductSales);
 
 // === Category Routes ===
 router.get('/categories', categoryController.getCategories);

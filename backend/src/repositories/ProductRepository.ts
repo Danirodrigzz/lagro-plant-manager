@@ -1,6 +1,7 @@
 import { prisma } from '../config/database';
 import { IProductRepository } from '../interfaces/repositories';
 import { PaginatedResponse, PaginationParams, ProductWithRelations } from '../types';
+import { Sale } from '@prisma/client';
 
 /**
  * Concrete implementation of IProductRepository using Prisma.
@@ -82,6 +83,13 @@ export class ProductRepository implements IProductRepository {
                 sales: true,
             },
         }) as Promise<ProductWithRelations | null>;
+    }
+
+    async findSalesByProductId(id: number): Promise<Sale[]> {
+        return prisma.sale.findMany({
+            where: { productId: id },
+            orderBy: { soldAt: 'asc' },
+        });
     }
 
     async count(search?: string, categoryId?: number): Promise<number> {

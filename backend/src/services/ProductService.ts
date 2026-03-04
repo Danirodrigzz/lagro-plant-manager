@@ -1,6 +1,7 @@
 import { IProductRepository } from '../interfaces/repositories';
 import { IProductService } from '../interfaces/services';
 import { PaginatedResponse, PaginationParams, ProductWithRelations } from '../types';
+import { Sale } from '@prisma/client';
 
 /**
  * Product service — Business logic layer.
@@ -27,5 +28,9 @@ export class ProductService implements IProductService {
 
     async getProductById(id: number): Promise<ProductWithRelations | null> {
         return this.productRepository.findById(id);
+    }
+
+    async getProductSales(id: number): Promise<Sale[]> {
+        return this.productRepository.findSalesByProductId(id);
     }
 }

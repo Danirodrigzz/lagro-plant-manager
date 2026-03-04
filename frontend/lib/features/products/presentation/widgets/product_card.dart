@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:lagro_plant_manager/features/products/domain/entities/product.dart';
+import 'package:lagro_plant_manager/features/products/presentation/widgets/sales_sparkline.dart';
 import 'package:lagro_plant_manager/core/theme/app_colors.dart';
 
 class ProductCard extends StatelessWidget {
@@ -94,6 +95,23 @@ class ProductCard extends StatelessWidget {
                     ),
                   ),
                   const SizedBox(height: 12),
+                  // Sales Trend (Sparkline)
+                  if (product.sales.isNotEmpty) ...[
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text(
+                          'Tendencia de ventas',
+                          style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                            color: Colors.grey[500],
+                            fontSize: 10,
+                          ),
+                        ),
+                        SalesSparkline(sales: product.sales),
+                      ],
+                    ),
+                    const SizedBox(height: 12),
+                  ],
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [

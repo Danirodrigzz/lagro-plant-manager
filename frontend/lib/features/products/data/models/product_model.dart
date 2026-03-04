@@ -22,10 +22,25 @@ class ProductModel with _$ProductModel {
     @HiveField(10) required String waterFrequency,
     @HiveField(11) required DateTime createdAt,
     @HiveField(12) required CategoryModel category,
+    @HiveField(13) @Default([]) List<SaleModel> sales,
   }) = _ProductModel;
 
   factory ProductModel.fromJson(Map<String, dynamic> json) =>
       _$ProductModelFromJson(json);
+}
+
+@freezed
+class SaleModel with _$SaleModel {
+  @HiveType(typeId: 2, adapterName: 'SaleModelAdapter')
+  const factory SaleModel({
+    @HiveField(0) required int id,
+    @HiveField(1) required int quantity,
+    @HiveField(2) required double totalPrice,
+    @HiveField(3) required DateTime soldAt,
+  }) = _SaleModel;
+
+  factory SaleModel.fromJson(Map<String, dynamic> json) =>
+      _$SaleModelFromJson(json);
 }
 
 @freezed
@@ -57,6 +72,16 @@ extension ProductModelX on ProductModel {
         createdAt: createdAt,
         categoryName: category.name,
         categoryIcon: category.icon,
+        sales: sales.map((s) => s.toEntity()).toList(),
+      );
+}
+
+extension SaleModelX on SaleModel {
+  Sale toEntity() => Sale(
+        id: id,
+        quantity: quantity,
+        totalPrice: totalPrice,
+        soldAt: soldAt,
       );
 }
 

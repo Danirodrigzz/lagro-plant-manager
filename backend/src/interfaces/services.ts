@@ -1,5 +1,5 @@
 import { PaginatedResponse, PaginationParams, ProductWithRelations } from '../types';
-import { Category } from '@prisma/client';
+import { Category, Sale } from '@prisma/client';
 
 /**
  * Interface Segregation Principle (ISP):
@@ -9,6 +9,7 @@ import { Category } from '@prisma/client';
 export interface IProductService {
     getProducts(params: PaginationParams): Promise<PaginatedResponse<ProductWithRelations>>;
     getProductById(id: number): Promise<ProductWithRelations | null>;
+    getProductSales(id: number): Promise<Sale[]>;
 }
 
 export interface ICategoryService {

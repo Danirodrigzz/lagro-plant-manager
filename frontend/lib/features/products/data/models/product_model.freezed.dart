@@ -46,6 +46,8 @@ mixin _$ProductModel {
   DateTime get createdAt => throw _privateConstructorUsedError;
   @HiveField(12)
   CategoryModel get category => throw _privateConstructorUsedError;
+  @HiveField(13)
+  List<SaleModel> get sales => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -72,7 +74,8 @@ abstract class $ProductModelCopyWith<$Res> {
       @HiveField(9) String sunlightNeeds,
       @HiveField(10) String waterFrequency,
       @HiveField(11) DateTime createdAt,
-      @HiveField(12) CategoryModel category});
+      @HiveField(12) CategoryModel category,
+      @HiveField(13) List<SaleModel> sales});
 
   $CategoryModelCopyWith<$Res> get category;
 }
@@ -103,6 +106,7 @@ class _$ProductModelCopyWithImpl<$Res, $Val extends ProductModel>
     Object? waterFrequency = null,
     Object? createdAt = null,
     Object? category = null,
+    Object? sales = null,
   }) {
     return _then(_value.copyWith(
       id: null == id
@@ -157,6 +161,10 @@ class _$ProductModelCopyWithImpl<$Res, $Val extends ProductModel>
           ? _value.category
           : category // ignore: cast_nullable_to_non_nullable
               as CategoryModel,
+      sales: null == sales
+          ? _value.sales
+          : sales // ignore: cast_nullable_to_non_nullable
+              as List<SaleModel>,
     ) as $Val);
   }
 
@@ -190,7 +198,8 @@ abstract class _$$ProductModelImplCopyWith<$Res>
       @HiveField(9) String sunlightNeeds,
       @HiveField(10) String waterFrequency,
       @HiveField(11) DateTime createdAt,
-      @HiveField(12) CategoryModel category});
+      @HiveField(12) CategoryModel category,
+      @HiveField(13) List<SaleModel> sales});
 
   @override
   $CategoryModelCopyWith<$Res> get category;
@@ -220,6 +229,7 @@ class __$$ProductModelImplCopyWithImpl<$Res>
     Object? waterFrequency = null,
     Object? createdAt = null,
     Object? category = null,
+    Object? sales = null,
   }) {
     return _then(_$ProductModelImpl(
       id: null == id
@@ -274,6 +284,10 @@ class __$$ProductModelImplCopyWithImpl<$Res>
           ? _value.category
           : category // ignore: cast_nullable_to_non_nullable
               as CategoryModel,
+      sales: null == sales
+          ? _value._sales
+          : sales // ignore: cast_nullable_to_non_nullable
+              as List<SaleModel>,
     ));
   }
 }
@@ -295,7 +309,9 @@ class _$ProductModelImpl implements _ProductModel {
       @HiveField(9) required this.sunlightNeeds,
       @HiveField(10) required this.waterFrequency,
       @HiveField(11) required this.createdAt,
-      @HiveField(12) required this.category});
+      @HiveField(12) required this.category,
+      @HiveField(13) final List<SaleModel> sales = const []})
+      : _sales = sales;
 
   factory _$ProductModelImpl.fromJson(Map<String, dynamic> json) =>
       _$$ProductModelImplFromJson(json);
@@ -339,10 +355,19 @@ class _$ProductModelImpl implements _ProductModel {
   @override
   @HiveField(12)
   final CategoryModel category;
+  final List<SaleModel> _sales;
+  @override
+  @JsonKey()
+  @HiveField(13)
+  List<SaleModel> get sales {
+    if (_sales is EqualUnmodifiableListView) return _sales;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_sales);
+  }
 
   @override
   String toString() {
-    return 'ProductModel(id: $id, name: $name, scientificName: $scientificName, description: $description, price: $price, stock: $stock, imageUrl: $imageUrl, careDifficulty: $careDifficulty, originCountry: $originCountry, sunlightNeeds: $sunlightNeeds, waterFrequency: $waterFrequency, createdAt: $createdAt, category: $category)';
+    return 'ProductModel(id: $id, name: $name, scientificName: $scientificName, description: $description, price: $price, stock: $stock, imageUrl: $imageUrl, careDifficulty: $careDifficulty, originCountry: $originCountry, sunlightNeeds: $sunlightNeeds, waterFrequency: $waterFrequency, createdAt: $createdAt, category: $category, sales: $sales)';
   }
 
   @override
@@ -371,7 +396,8 @@ class _$ProductModelImpl implements _ProductModel {
             (identical(other.createdAt, createdAt) ||
                 other.createdAt == createdAt) &&
             (identical(other.category, category) ||
-                other.category == category));
+                other.category == category) &&
+            const DeepCollectionEquality().equals(other._sales, _sales));
   }
 
   @JsonKey(ignore: true)
@@ -390,7 +416,8 @@ class _$ProductModelImpl implements _ProductModel {
       sunlightNeeds,
       waterFrequency,
       createdAt,
-      category);
+      category,
+      const DeepCollectionEquality().hash(_sales));
 
   @JsonKey(ignore: true)
   @override
@@ -408,20 +435,20 @@ class _$ProductModelImpl implements _ProductModel {
 
 abstract class _ProductModel implements ProductModel {
   const factory _ProductModel(
-          {@HiveField(0) required final int id,
-          @HiveField(1) required final String name,
-          @HiveField(2) required final String scientificName,
-          @HiveField(3) required final String description,
-          @HiveField(4) required final double price,
-          @HiveField(5) required final int stock,
-          @HiveField(6) required final String imageUrl,
-          @HiveField(7) required final String careDifficulty,
-          @HiveField(8) required final String originCountry,
-          @HiveField(9) required final String sunlightNeeds,
-          @HiveField(10) required final String waterFrequency,
-          @HiveField(11) required final DateTime createdAt,
-          @HiveField(12) required final CategoryModel category}) =
-      _$ProductModelImpl;
+      {@HiveField(0) required final int id,
+      @HiveField(1) required final String name,
+      @HiveField(2) required final String scientificName,
+      @HiveField(3) required final String description,
+      @HiveField(4) required final double price,
+      @HiveField(5) required final int stock,
+      @HiveField(6) required final String imageUrl,
+      @HiveField(7) required final String careDifficulty,
+      @HiveField(8) required final String originCountry,
+      @HiveField(9) required final String sunlightNeeds,
+      @HiveField(10) required final String waterFrequency,
+      @HiveField(11) required final DateTime createdAt,
+      @HiveField(12) required final CategoryModel category,
+      @HiveField(13) final List<SaleModel> sales}) = _$ProductModelImpl;
 
   factory _ProductModel.fromJson(Map<String, dynamic> json) =
       _$ProductModelImpl.fromJson;
@@ -466,8 +493,226 @@ abstract class _ProductModel implements ProductModel {
   @HiveField(12)
   CategoryModel get category;
   @override
+  @HiveField(13)
+  List<SaleModel> get sales;
+  @override
   @JsonKey(ignore: true)
   _$$ProductModelImplCopyWith<_$ProductModelImpl> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+SaleModel _$SaleModelFromJson(Map<String, dynamic> json) {
+  return _SaleModel.fromJson(json);
+}
+
+/// @nodoc
+mixin _$SaleModel {
+  @HiveField(0)
+  int get id => throw _privateConstructorUsedError;
+  @HiveField(1)
+  int get quantity => throw _privateConstructorUsedError;
+  @HiveField(2)
+  double get totalPrice => throw _privateConstructorUsedError;
+  @HiveField(3)
+  DateTime get soldAt => throw _privateConstructorUsedError;
+
+  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
+  @JsonKey(ignore: true)
+  $SaleModelCopyWith<SaleModel> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class $SaleModelCopyWith<$Res> {
+  factory $SaleModelCopyWith(SaleModel value, $Res Function(SaleModel) then) =
+      _$SaleModelCopyWithImpl<$Res, SaleModel>;
+  @useResult
+  $Res call(
+      {@HiveField(0) int id,
+      @HiveField(1) int quantity,
+      @HiveField(2) double totalPrice,
+      @HiveField(3) DateTime soldAt});
+}
+
+/// @nodoc
+class _$SaleModelCopyWithImpl<$Res, $Val extends SaleModel>
+    implements $SaleModelCopyWith<$Res> {
+  _$SaleModelCopyWithImpl(this._value, this._then);
+
+  // ignore: unused_field
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? id = null,
+    Object? quantity = null,
+    Object? totalPrice = null,
+    Object? soldAt = null,
+  }) {
+    return _then(_value.copyWith(
+      id: null == id
+          ? _value.id
+          : id // ignore: cast_nullable_to_non_nullable
+              as int,
+      quantity: null == quantity
+          ? _value.quantity
+          : quantity // ignore: cast_nullable_to_non_nullable
+              as int,
+      totalPrice: null == totalPrice
+          ? _value.totalPrice
+          : totalPrice // ignore: cast_nullable_to_non_nullable
+              as double,
+      soldAt: null == soldAt
+          ? _value.soldAt
+          : soldAt // ignore: cast_nullable_to_non_nullable
+              as DateTime,
+    ) as $Val);
+  }
+}
+
+/// @nodoc
+abstract class _$$SaleModelImplCopyWith<$Res>
+    implements $SaleModelCopyWith<$Res> {
+  factory _$$SaleModelImplCopyWith(
+          _$SaleModelImpl value, $Res Function(_$SaleModelImpl) then) =
+      __$$SaleModelImplCopyWithImpl<$Res>;
+  @override
+  @useResult
+  $Res call(
+      {@HiveField(0) int id,
+      @HiveField(1) int quantity,
+      @HiveField(2) double totalPrice,
+      @HiveField(3) DateTime soldAt});
+}
+
+/// @nodoc
+class __$$SaleModelImplCopyWithImpl<$Res>
+    extends _$SaleModelCopyWithImpl<$Res, _$SaleModelImpl>
+    implements _$$SaleModelImplCopyWith<$Res> {
+  __$$SaleModelImplCopyWithImpl(
+      _$SaleModelImpl _value, $Res Function(_$SaleModelImpl) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? id = null,
+    Object? quantity = null,
+    Object? totalPrice = null,
+    Object? soldAt = null,
+  }) {
+    return _then(_$SaleModelImpl(
+      id: null == id
+          ? _value.id
+          : id // ignore: cast_nullable_to_non_nullable
+              as int,
+      quantity: null == quantity
+          ? _value.quantity
+          : quantity // ignore: cast_nullable_to_non_nullable
+              as int,
+      totalPrice: null == totalPrice
+          ? _value.totalPrice
+          : totalPrice // ignore: cast_nullable_to_non_nullable
+              as double,
+      soldAt: null == soldAt
+          ? _value.soldAt
+          : soldAt // ignore: cast_nullable_to_non_nullable
+              as DateTime,
+    ));
+  }
+}
+
+/// @nodoc
+@JsonSerializable()
+@HiveType(typeId: 2, adapterName: 'SaleModelAdapter')
+class _$SaleModelImpl implements _SaleModel {
+  const _$SaleModelImpl(
+      {@HiveField(0) required this.id,
+      @HiveField(1) required this.quantity,
+      @HiveField(2) required this.totalPrice,
+      @HiveField(3) required this.soldAt});
+
+  factory _$SaleModelImpl.fromJson(Map<String, dynamic> json) =>
+      _$$SaleModelImplFromJson(json);
+
+  @override
+  @HiveField(0)
+  final int id;
+  @override
+  @HiveField(1)
+  final int quantity;
+  @override
+  @HiveField(2)
+  final double totalPrice;
+  @override
+  @HiveField(3)
+  final DateTime soldAt;
+
+  @override
+  String toString() {
+    return 'SaleModel(id: $id, quantity: $quantity, totalPrice: $totalPrice, soldAt: $soldAt)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$SaleModelImpl &&
+            (identical(other.id, id) || other.id == id) &&
+            (identical(other.quantity, quantity) ||
+                other.quantity == quantity) &&
+            (identical(other.totalPrice, totalPrice) ||
+                other.totalPrice == totalPrice) &&
+            (identical(other.soldAt, soldAt) || other.soldAt == soldAt));
+  }
+
+  @JsonKey(ignore: true)
+  @override
+  int get hashCode =>
+      Object.hash(runtimeType, id, quantity, totalPrice, soldAt);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$SaleModelImplCopyWith<_$SaleModelImpl> get copyWith =>
+      __$$SaleModelImplCopyWithImpl<_$SaleModelImpl>(this, _$identity);
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$$SaleModelImplToJson(
+      this,
+    );
+  }
+}
+
+abstract class _SaleModel implements SaleModel {
+  const factory _SaleModel(
+      {@HiveField(0) required final int id,
+      @HiveField(1) required final int quantity,
+      @HiveField(2) required final double totalPrice,
+      @HiveField(3) required final DateTime soldAt}) = _$SaleModelImpl;
+
+  factory _SaleModel.fromJson(Map<String, dynamic> json) =
+      _$SaleModelImpl.fromJson;
+
+  @override
+  @HiveField(0)
+  int get id;
+  @override
+  @HiveField(1)
+  int get quantity;
+  @override
+  @HiveField(2)
+  double get totalPrice;
+  @override
+  @HiveField(3)
+  DateTime get soldAt;
+  @override
+  @JsonKey(ignore: true)
+  _$$SaleModelImplCopyWith<_$SaleModelImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
 

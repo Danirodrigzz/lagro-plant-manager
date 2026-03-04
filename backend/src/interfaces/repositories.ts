@@ -1,5 +1,5 @@
 import { PaginatedResponse, PaginationParams, ProductWithRelations } from '../types';
-import { Category } from '@prisma/client';
+import { Category, Sale } from '@prisma/client';
 
 /**
  * Interface Segregation Principle (ISP):
@@ -13,6 +13,7 @@ export interface IProductRepository {
     findAll(params: PaginationParams): Promise<PaginatedResponse<ProductWithRelations>>;
     findById(id: number): Promise<ProductWithRelations | null>;
     count(search?: string, categoryId?: number): Promise<number>;
+    findSalesByProductId(id: number): Promise<Sale[]>;
 }
 
 export interface ICategoryRepository {
