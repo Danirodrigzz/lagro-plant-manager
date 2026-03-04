@@ -36,10 +36,28 @@ class ProductRepositoryImpl implements IProductRepository {
     } catch (e) {
       // If network fails and it's the first page, try to load from cache
       if (cursor == null) {
-        final cachedModels = await _localDataSource.getCachedProducts();
+        var cachedModels = await _localDataSource.getCachedProducts();
+        
+        // Filter cache by search and category if necessary
+        if (search != null && search.isNotEmpty) {
+          final query = search.toLowerCase();
+          cachedModels = cachedModels.where((m) => 
+            m.name.toLowerCase().contains(query) || 
+            m.scientificName.toLowerCase().contains(query) ||
+            m.description.toLowerCase().contains(query)
+          ).toList();
+        }
+        
+        if (categoryId != null) {
+          cachedModels = cachedModels.where((m) => m.category.id == categoryId).toList();
+        }
+
         if (cachedModels.isNotEmpty) {
           final entities = cachedModels.map((m) => m.toEntity()).toList();
-          return (entities, null, false);
+          return (entities, null as int?, false);
+        } else if (search != null || categoryId != null) {
+          // If we were searching/filtering and found nothing in cache, return empty
+          return (<Product>[], null as int?, false);
         }
       }
       rethrow;

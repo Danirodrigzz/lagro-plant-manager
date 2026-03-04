@@ -24,6 +24,7 @@ class ProductsScreen extends ConsumerWidget {
       body: RefreshIndicator(
         onRefresh: () => notifier.refresh(),
         child: CustomScrollView(
+          cacheExtent: 1000,
           slivers: [
             // Premium Header
             SliverAppBar.large(
