@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:lagro_plant_manager/features/products/presentation/providers/products_providers.dart';
+import 'package:lagro_plant_manager/core/utils/icon_helpers.dart';
 
 class CategoryChips extends ConsumerWidget {
   final int? selectedCategoryId;
@@ -48,7 +49,13 @@ class CategoryChips extends ConsumerWidget {
                 padding: const EdgeInsets.only(right: 8),
                 child: ChoiceChip(
                   label: Text(category.name),
-                  avatar: Text(category.icon),
+                  avatar: Icon(
+                    IconHelpers.getCategoryIcon(category.name),
+                    size: 16,
+                    color: isSelected 
+                        ? Theme.of(context).primaryColor 
+                        : (Theme.of(context).brightness == Brightness.dark ? Colors.grey[400] : Colors.grey[600]),
+                  ),
                   selected: isSelected,
                   onSelected: (selected) {
                     onCategorySelected(selected ? category.id : null);

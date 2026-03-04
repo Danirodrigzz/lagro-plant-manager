@@ -7,7 +7,7 @@ class AppColors {
   static const Color accent = Color(0xFF4CAF50);
   
   // Neutral Colors
-  static const Color background = Color(0xFFF5F5F5);
+  static const Color background = Color(0xFFF8F9FA);
   static const Color surface = Colors.white;
   static const Color error = Color(0xFFD32F2F);
   
@@ -20,10 +20,12 @@ class AppColors {
   static const Color success = Color(0xFF388E3C);
   static const Color warning = Color(0xFFFFA000);
 
-  // Dark Theme Colors
-  static const Color darkBackground = Color(0xFF121212);
-  static const Color darkSurface = Color(0xFF1E1E1E);
-  static const Color darkCard = Color(0xFF2C2C2C);
-  static const Color darkTextPrimary = Color(0xFFE0E0E0);
-  static const Color darkTextSecondary = Color(0xFF9E9E9E);
+  // Dark Theme Colors — Premium Night Mode
+  static const Color darkBackground = Color(0xFF0D1117);
+  static const Color darkSurface = Color(0xFF161B22);
+  static const Color darkCard = Color(0xFF1C2333);
+  static const Color darkTextPrimary = Color(0xFFE6EDF3);
+  static const Color darkTextSecondary = Color(0xFF8B949E);
+  static const Color darkBorder = Color(0xFF30363D);
+  static const Color darkAccent = Color(0xFF3FB950);
 }
