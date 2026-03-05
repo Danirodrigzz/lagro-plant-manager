@@ -13,6 +13,13 @@ lagro-plant-manager/
 ├── backend/        → Node.js + TypeScript + Express + Prisma + PostgreSQL
 ├── frontend/       → Flutter + Riverpod + Dio + Hive
 └── README.md
+
+## 🌍 Cloud Deployment
+
+The backend is live on **Railway** for production testing:
+- **API Status**: [Check Health 🌱](https://lagro-plant-manager-production.up.railway.app/health)
+- **API Base URL**: `https://lagro-plant-manager-production.up.railway.app/api/v1`
+- **Seeded Records**: 50,000 live products available.
 ```
 
 ### Backend
