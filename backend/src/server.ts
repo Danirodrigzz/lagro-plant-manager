@@ -38,11 +38,14 @@ app.use('/api/v1', routes);
 app.use(errorHandler);
 
 // === Start Server ===
+// CRITICAL: Railway uses the PORT env variable. We must bind to 0.0.0.0
 const PORT = process.env.PORT || 3000;
 
+console.log(`📡 Inciando servidor en puerto: ${PORT}...`);
+
 const server = app.listen(Number(PORT), '0.0.0.0', () => {
-    console.log(`🚀 SERVIDOR OK: Corriendo en puerto ${PORT}`);
-    console.log(`🌍 Environment: ${env.NODE_ENV}`);
+    console.log(`🚀 SERVIDOR OK: Escuchando en 0.0.0.0:${PORT}`);
+    console.log(`🧪 Health Check: /health`);
 });
 
 // Cloud stability: Ensures the connection stays alive and process doesn't exit prematurely

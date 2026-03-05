@@ -7,6 +7,8 @@
     },
     "deploy": {
         "numReplicas": 1,
-        "sleepApplication": false
+        "sleepApplication": false,
+        "healthcheckPath": "/health",
+        "restartPolicyType": "ON_FAILURE"
     }
 }
