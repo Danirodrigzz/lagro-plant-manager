@@ -38,9 +38,15 @@ app.use('/api/v1', routes);
 app.use(errorHandler);
 
 // === Start Server ===
-app.listen(env.PORT, () => {
-    console.log(`🌱 Lagro API running on http://localhost:${env.PORT}`);
-    console.log(`📋 Environment: ${env.NODE_ENV}`);
+const PORT = process.env.PORT || 3000;
+
+const server = app.listen(Number(PORT), '0.0.0.0', () => {
+    console.log(`🚀 SERVIDOR OK: Corriendo en puerto ${PORT}`);
+    console.log(`🌍 Environment: ${env.NODE_ENV}`);
 });
+
+// Cloud stability: Ensures the connection stays alive and process doesn't exit prematurely
+server.keepAliveTimeout = 65000;
+server.headersTimeout = 66000;
 
 export default app;
